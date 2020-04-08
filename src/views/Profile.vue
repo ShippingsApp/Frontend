@@ -2,25 +2,21 @@
   <div class="container">
     <header class="jumbotron">
       <h3>
-        <strong>{{currentUser.username}}</strong> Profile
+        <strong>Мой профиль</strong>
       </h3>
     </header>
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.token}}
+
+    <p>Логин: {{currentUser.username}}
     </p>
-    <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
+    <p>Имя, фамилия: {{currentUser.realName}}
     </p>
-    <p>
-      <strong>RealName:</strong>
-      {{currentUser.realName}}
+    <p>Роль: {{currentUser.roles[0]}}
     </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="(role,index) in currentUser.roles" :key="index">{{role}}</li>
-    </ul>
+    <p>Мобильный телефон: {{currentUser.mobilePhone}}
+    </p>
+    <div class="form-group">
+      <button v-on:click="redirectToEditProfile" class="btn btn-secondary btn-block">Редактировать</button>
+    </div>
   </div>
 </template>
 
@@ -36,6 +32,19 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+  },
+  methods: {
+    redirectToEditProfile() {
+      this.$router.push('/edit profile');
+    }
   }
+
 };
 </script>
+
+<style scoped>
+  .jumbotron {
+    padding-top: 20px !important;
+    padding-bottom: 15px !important;
+  }
+</style>

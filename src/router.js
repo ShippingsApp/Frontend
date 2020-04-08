@@ -43,6 +43,12 @@ export const router = new Router({
       name: 'client',
       // lazy-loaded
       component: () => import('./views/BoardClient.vue')
+    },
+    {
+      path: '/edit profile',
+      name: 'editProfile',
+      // lazy-loaded
+      component: () => import('./views/EditProfile.vue')
     }
   ]
 });

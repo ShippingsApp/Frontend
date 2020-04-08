@@ -10,6 +10,9 @@
         <li v-if="showDriverBoard" class="nav-item">
           <router-link to="/driver" class="nav-link">Мои поездки</router-link>
         </li>
+        <li v-if="showDriverBoard" class="nav-item">
+            <router-link to="/driverRequest" class="nav-link">Реквесты</router-link>
+        </li>
         <li v-if="showClientBoard" class="nav-item">
           <router-link to="/client" class="nav-link">Поиск предложений</router-link>
         </li>

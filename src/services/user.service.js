@@ -15,6 +15,14 @@ class UserService {
   getDriverBoard() {
     return axios.get(API_URL + 'driver', { headers: authHeader() });
   }
+
+  getDriverRequestBoard() {
+        return axios.get(API_URL + 'driverRequest', { headers: authHeader() });
+  }
+
+
+
+
 }
 
 export default new UserService();

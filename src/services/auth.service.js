@@ -30,6 +30,21 @@ class AuthService {
       mobilePhone: user.mobilePhone
     });
   }
+
+  addRoute(route) {
+    return axios.post(API_URL + 'routeup', {
+      dateStart: route.dateStart,
+      dateFinish: route.dateFinish,
+      start: route.start,
+      finish: route.finish,
+      weight:route.weight,
+      height:route.height,
+      length:route.length,
+      width:route.width,
+      plusTime:route.plusTime,
+      comment: route.comment
+    });
+  }
 }
 
 export default new AuthService();

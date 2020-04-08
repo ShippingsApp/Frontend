@@ -36,6 +36,18 @@ export const auth = {
           return Promise.reject(error);
         }
       );
+    },
+    addRoute({ commit }, route) {
+      return AuthService.addRoute(route).then(
+          response => {
+        commit('addingSuccess');
+      return Promise.resolve(response.data);
+    },
+      error => {
+        commit('addingFailure');
+        return Promise.reject(error);
+      }
+    );
     }
   },
   mutations: {

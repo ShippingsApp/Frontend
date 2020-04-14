@@ -29,25 +29,21 @@ export const router = new Router({
     {
       path: '/profile',
       name: 'profile',
-      // lazy-loaded
       component: () => import('./views/Profile.vue')
     },
     {
       path: '/driver',
       name: 'driver',
-      // lazy-loaded
       component: () => import('./views/BoardDriver.vue')
     },
     {
       path: '/client',
       name: 'client',
-      // lazy-loaded
       component: () => import('./views/BoardClient.vue')
     },
     {
       path: '/edit profile',
       name: 'editProfile',
-      // lazy-loaded
       component: () => import('./views/EditProfile.vue')
     }
   ]

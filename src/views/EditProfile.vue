@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label for="realName">Имя и фамилия</label>
                     <input
-                            v-model="currentUser.realName"
+                            v-model="newRealName"
                             v-validate="'required|max:30'"
                             type="text"
                             class="form-control"
@@ -25,27 +25,30 @@
                 <div class="form-group">
                     <label for="mobilePhone">Мобильный телефон</label>
                     <input
-                            v-model="currentUser.mobilePhone"
+                            v-model="newMobilePhone"
                             v-validate="'required|max:15'"
                             type="text"
                             class="form-control"
-                            name="realName"
+                            name="mobilePhone"
                     />
                     <div
-                            v-if="errors.has('realName')"
+                            v-if="errors.has('mobilePhone')"
                             class="alert-danger"
-                    >{{errors.first('realName')}}</div>
+                    >{{errors.first('mobilePhone')}}</div>
                 </div>
 
                 <div class="form-group">
                     <button class="btn btn-secondary btn-block" :disabled="loading">
-                        <!--span v-show="loading" class="spinner-border spinner-border-sm"></span-->
+                        <span v-show="loading" class="spinner-border spinner-border-sm"></span>
                         <span>Сохранить изменения</span>
                     </button>
                 </div>
-                <div class="form-group">
-                    <div v-if="message" class="alert alert-danger" role="alert">{{message}}</div>
-                </div>
+
+                <div v-if="message"
+                        class="alert"
+                        :class="successful ? 'alert-success' : 'alert-danger'"
+                >{{message}}</div>
+
             </form>
         </div>
     </div>
@@ -54,19 +57,17 @@
 
 
 <script>
-// import User from '../models/user';
 
 export default {
     name: 'EditProfile',
     data() {
         return {
+            currentUser: JSON.parse(localStorage.getItem('user')),
+            successful: false,
             loading: false,
-            message: ''
-        }
-    },
-    computed: {
-        currentUser() {
-            return this.$store.state.auth.user;
+            message: null,
+            newRealName: JSON.parse(localStorage.getItem('user')).realName,
+            newMobilePhone: JSON.parse(localStorage.getItem('user')).mobilePhone
         }
     },
     mounted() {
@@ -76,8 +77,36 @@ export default {
     },
     methods: {
         editProfile() {
+            this.loading = true;
+            this.$validator.validateAll().then(isValid => {
+                if (!isValid) {
+                    this.loading = false;
+                    return;
+                }
 
-        }
+                if (this.newRealName && this.newMobilePhone) {
+
+                    this.$store.dispatch('auth/updateUser',
+                        [this.newRealName, this.newMobilePhone])
+                        .then(
+                        response => {
+                            this.message = response.data.message;
+                            this.loading = false;
+                            this.successful = true;
+
+                        },
+                        error => {
+                            this.message =
+                                (error.response && error.response.data) ||
+                                error.message ||
+                                error.toString();
+                            this.successful = false;
+                            this.loading = false;
+                        }
+                    );
+                }
+            })
+        },
     }
 };
 </script>

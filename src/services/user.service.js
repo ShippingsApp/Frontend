@@ -1,19 +1,35 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8088/api/test/';
+const API_URL_TEST = 'http://localhost:8088/api/test/';
+
+const API_UPL = 'http://localhost:8088/users/';
 
 class UserService {
+
+  updateUserInfo(username, realName, mobilePhone) {
+
+    return axios.patch(API_UPL + 'editprofile/' + username,
+        {
+            realName : realName,
+            mobilePhone : mobilePhone
+        },
+        { headers: authHeader() })
+        .then(response => {
+            return response;
+        });
+  }
+
   getPublicContent() {
-    return axios.get(API_URL + 'all');
+    return axios.get(API_URL_TEST + 'all');
   }
 
   getClientBoard() {
-    return axios.get(API_URL + 'client', { headers: authHeader() });
+    return axios.get(API_URL_TEST + 'client', { headers: authHeader() });
   }
 
   getDriverBoard() {
-    return axios.get(API_URL + 'driver', { headers: authHeader() });
+    return axios.get(API_URL_TEST + 'driver', { headers: authHeader() });
   }
 }
 

@@ -25,11 +25,12 @@ export default {
   name: 'Profile',
   computed: {
     currentUser() {
+      //console.log(this.$store.state.auth.user);
       return this.$store.state.auth.user;
     }
   },
   mounted() {
-    if (!this.currentUser) {
+    if (!this.$store.state.auth.status.loggedIn) {
       this.$router.push('/login');
     }
   },

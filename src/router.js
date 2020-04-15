@@ -4,7 +4,7 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import AddRoute from './views/AddRoute.vue';
-
+import EditRoute from './views/EditRoute.vue';
 
 Vue.use(Router);
 
@@ -31,6 +31,10 @@ export const router = new Router({
     {
       path: '/addRoute',
       component: AddRoute
+    },
+    {
+      path: '/editRoute/:id',
+      component: EditRoute
     },
     {
       path: '/profile',

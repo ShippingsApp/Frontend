@@ -39,15 +39,27 @@ export const auth = {
     },
     addRoute({ commit }, route) {
       return AuthService.addRoute(route).then(
-          response => {
-        commit('addingSuccess');
-      return Promise.resolve(response.data);
+        response => {
+          commit('addingSuccess');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          commit('addingFailure');
+          return Promise.reject(error);
+        }
+      );
     },
-      error => {
-        commit('addingFailure');
-        return Promise.reject(error);
-      }
-    );
+    editRoute({ commit }, route) {
+      return AuthService.editRoute(route).then(
+          response => {
+            commit('editingSuccess');
+            return Promise.resolve(response.data);
+          },
+          error => {
+            commit('editingFailure');
+            return Promise.reject(error);
+          }
+      );
     }
   },
   mutations: {

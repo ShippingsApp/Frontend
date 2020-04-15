@@ -1,28 +1,28 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Мои поездки</h3>
+      <h3>Реквесты</h3>
     </header>
     <body>
 
     <table class="table table-hover table-sm">
         <thead class="thead-dark">
         <tr>
-            <th>Дата отправления</th>
-            <th>Дата прибытия</th>
-            <th>Город отправления</th>
-            <th>Город прибытия</th>
-            <th>Высота (м)</th>
-            <th>Ширина (м)</th>
-            <th>Длина (м)</th>
-            <th>Вес (кг)</th>
-            <th>Доп. время (дн)</th>
-            <th>Комментарий</th>
-            <th><router-link to="/addRoute" class="btn btn-dark btn-sm">+</router-link></th>
+            <th><label for="date_start">Дата отправления</label></th>
+            <th><label for="date_finish">Дата прибытия</label></th>
+            <th><label for="start">Город отправления</label></th>
+            <th><label for="finish">Город прибытия</label></th>
+            <th><label for="weight">Высота (м)</label></th>
+            <th><label for="height">Ширина (м)</label></th>
+            <th><label for="length">Длина (м)</label></th>
+            <th><label for="width">Вес (кг)</label></th>
+            <th><label for="plus_time">Доп. время (дн)</label></th>
+            <th><label for="comment">Комментарий</label></th>
+            <th><button class="btn btn-dark btn-sm">?</button></th>
         </tr>
         </thead>
         <tbody id="list_route">
-            <tr v-for="route in routes" :key="route.date_start">
+            <tr v-for="route in routes" :key="route.id">
               <td>{{ route.date_start }}</td>
               <td>{{ route.date_finish }}</td>
               <td>{{ route.start }}</td>
@@ -33,7 +33,7 @@
               <td>{{ route.width }}</td>
               <td>{{ route.plus_time }}</td>
               <td>{{ route.comment }}</td>
-              <td><router-link :to="'/editRoute/'+route.id" class="btn btn-sm">./</router-link></td>
+              <td><button class="btn btn-sm">V</button><button class="btn btn-sm">X</button></td>
             </tr>
         </tbody>
     </table>
@@ -45,14 +45,16 @@
 import UserService from '../services/user.service';
 
 export default {
-  name: 'list_route',
+  name: 'DriverRequest',
+  el: '#list_route',
   data() {
     return {
       routes: []
     };
   },
+
   mounted() {
-    UserService.getDriverBoard().then(
+    UserService.getDriverRequestBoard().then(
       response => {
         this.routes = response.data;
       },

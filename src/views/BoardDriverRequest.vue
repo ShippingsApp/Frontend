@@ -33,7 +33,7 @@
               <td>{{ route.width }}</td>
               <td>{{ route.plus_time }}</td>
               <td>{{ route.comment }}</td>
-              <td><button class="btn btn-sm">V</button><button class="btn btn-sm">X</button></td>
+                <td><button class="btn btn-sm">V</button><router-link :to="'/refuseShip/'+route.id" class="btn btn-sm">X</router-link></td>
             </tr>
         </tbody>
     </table>
@@ -52,7 +52,6 @@ export default {
       routes: []
     };
   },
-
   mounted() {
     UserService.getDriverRequestBoard().then(
       response => {

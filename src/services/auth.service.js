@@ -60,6 +60,12 @@ class AuthService {
       comment: route.comment
     });
   }
+
+  refuseShip(id){
+      return axios.post(API_URL + 'refuseShip', {
+            id:id
+        });
+  }
 }
 
 export default new AuthService();

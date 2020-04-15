@@ -5,7 +5,8 @@ import Login from './views/Login.vue';
 import Register from './views/Register.vue';
 import AddRoute from './views/AddRoute.vue';
 import EditRoute from './views/EditRoute.vue';
-
+import BoardRefuse from './views/BoardRefuse.vue';
+BoardRefuse
 Vue.use(Router);
 
 export const router = new Router({
@@ -35,6 +36,10 @@ export const router = new Router({
     {
       path: '/editRoute/:id',
       component: EditRoute
+    },
+    {
+       path: '/refuseShip/:id',
+       component: BoardRefuse
     },
     {
       path: '/profile',

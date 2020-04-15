@@ -60,6 +60,18 @@ export const auth = {
             return Promise.reject(error);
           }
       );
+    },
+    refuseShip({ commit }, id) {
+      return AuthService.refuseShip(id).then(
+          response => {
+        commit('refuse suss');
+      return Promise.resolve(response.data);
+    },
+      error => {
+        commit('refuse fail');
+        return Promise.reject(error);
+      }
+    );
     }
   },
   mutations: {

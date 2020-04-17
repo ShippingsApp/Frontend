@@ -7,13 +7,13 @@
         </header>
         <div class="card card-container">
             <form name="form" @submit.prevent="editProfile">
-                <div class="form-group">
-                    <label for="realName">Имя и фамилия</label>
+                <div class="form-group row">
+                    <label for="realName" class="col-sm-4 col-form-label">Имя и фамилия:</label>
                     <input
                             v-model="newRealName"
                             v-validate="'required|max:30'"
                             type="text"
-                            class="form-control"
+                            class="form-control col-sm-8"
                             name="realName"
                     />
                     <div
@@ -22,13 +22,13 @@
                     >{{errors.first('realName')}}</div>
                 </div>
 
-                <div class="form-group">
-                    <label for="mobilePhone">Мобильный телефон</label>
+                <div class="form-group row">
+                    <label for="mobilePhone" class="col-sm-4 col-form-label">Моб. номер:</label>
                     <input
                             v-model="newMobilePhone"
                             v-validate="'required|max:15'"
                             type="text"
-                            class="form-control"
+                            class="form-control col-sm-8"
                             name="mobilePhone"
                     />
                     <div
@@ -37,7 +37,7 @@
                     >{{errors.first('mobilePhone')}}</div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group custom-padding">
                     <button class="btn btn-secondary btn-block" :disabled="loading">
                         <span v-show="loading" class="spinner-border spinner-border-sm"></span>
                         <span>Сохранить изменения</span>
@@ -45,7 +45,7 @@
                 </div>
 
                 <div v-if="message"
-                        class="alert"
+                        class="alert align-text-center"
                         :class="successful ? 'alert-success' : 'alert-danger'"
                 >{{message}}</div>
 
@@ -119,8 +119,16 @@ export default {
 }
 
 .card-container.card {
-    max-width: 400px !important;
+    max-width: 600px !important;
     padding: 20px 40px;
+}
+
+.custom-padding {
+    padding: 20px 0px 0px 0px;
+}
+
+.align-text-center {
+    text-align: center;
 }
 
 .card {

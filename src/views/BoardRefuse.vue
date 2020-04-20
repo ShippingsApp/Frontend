@@ -1,13 +1,15 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Отказаться //И здесь должен быть кусок который подгружает информацию о шипе</h3>
+      <h3>Отказаться</h3>
     </header>
     <body>
     <form name="form" @submit.prevent="refuseShip">
       <div v-if="!successful">
         <div class="form-group">
           <div class="form-group">
+            <p>Вы действительно хотите отказаться от реквеста
+            {{oldRoute.start}} - {{oldRoute.finish}} ? </p>
             <button class="btn btn-primary btn-block btn-dark">Отказаться</button>
           </div>
         </div>
@@ -19,35 +21,46 @@
 </template>
 
 <script>
-  import Route from '../models/route';
+  import ShipService from '../services/ship.service';
 
   export default {
     name: 'Route',
     data() {
       return {
+        oldRoute: new Route('','', '', '', '', '','', '', '', '', '',''),
           submitted: false,
           successful: false,
           message: ''
     };
+    },
+    mounted() {
+      ShipService.getRoute(this.$route.params.id).then(
+              response => {
+                this.oldRoute = response.data;
+              },
+              error => {
+                this.routes =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+              }
+      );
     },
 
     methods: {
       refuseShip() {
         this.message = '';
         this.submitted = true;
-        this.$store.dispatch('auth/refuseShip', this.$route.params.id).then(
-                data => {
-                  this.message = data.message;
-                  this.successful = true;
-                },
-                error => {
-                  this.message =
-                          (error.response && error.response.data) ||
-                          error.message ||
-                          error.toString();
-                  this.successful = false;
-                }
-        );
+        ShipService.refuseShip(this.$route.params.id).then(
+                        response => {
+                          this.$router.push('/driverRequest');
+                          return Promise.resolve(response.data);
+                        },
+                        error => {
+                          return Promise.reject(error);
+                        }
+                );
+
       }
     }
   };
@@ -57,7 +70,7 @@
   table{
     width: 100%;
   }
-  td{
+  td{/*
     vertical-align: bottom;
-  }
+  */}
 </style>

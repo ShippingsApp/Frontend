@@ -12,11 +12,11 @@
             <th><label for="date_finish">Дата прибытия</label></th>
             <th><label for="start">Город отправления</label></th>
             <th><label for="finish">Город прибытия</label></th>
+            <th><label for="plus_time">Доп. время (дн)</label></th>
             <th><label for="weight">Высота (м)</label></th>
             <th><label for="height">Ширина (м)</label></th>
             <th><label for="length">Длина (м)</label></th>
             <th><label for="width">Вес (кг)</label></th>
-            <th><label for="plus_time">Доп. время (дн)</label></th>
             <th><label for="comment">Комментарий</label></th>
             <th><button class="btn btn-dark btn-sm">?</button></th>
         </tr>
@@ -27,11 +27,11 @@
               <td>{{ route.date_finish }}</td>
               <td>{{ route.start }}</td>
               <td>{{ route.finish }}</td>
+              <td>{{ route.plus_time }}</td>
               <td>{{ route.weight }}</td>
               <td>{{ route.height }}</td>
               <td>{{ route.length }}</td>
               <td>{{ route.width }}</td>
-              <td>{{ route.plus_time }}</td>
               <td>{{ route.comment }}</td>
                 <td><button class="btn btn-sm">V</button><router-link :to="'/refuseShip/'+route.id" class="btn btn-sm">X</router-link></td>
             </tr>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import UserService from '../services/user.service';
+import ShipService from '../services/ship.service';
 
 export default {
   name: 'DriverRequest',
@@ -53,7 +53,7 @@ export default {
     };
   },
   mounted() {
-    UserService.getDriverRequestBoard().then(
+    ShipService.getDriverRequestBoard().then(
       response => {
         this.routes = response.data;
       },

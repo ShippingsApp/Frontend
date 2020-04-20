@@ -7,7 +7,8 @@
     <form name="form" @submit.prevent="addNewRoute">
       <div v-if="!successful">
         <table>
-          <tr>
+          <tr class="tr-blue">
+            <td class="haract">Характеристики пути</td>
             <td><div class="form-group">
           <label for="dateStart">Дата отправления</label>
           <input
@@ -23,7 +24,7 @@
                   class="alert-danger"
           >{{errors.first('dateStart')}}</div>
         </div></td>
-            <td colspan="4"><div class="form-group">
+            <td colspan="3"><div class="form-group">
               <label for="start">Город отправления</label>
               <input
                       v-model="route.start"
@@ -39,7 +40,22 @@
               >{{errors.first('start')}}</div>
             </div></td>
           </tr>
-          <tr>
+          <tr class="tr-blue">
+            <td><div class="form-group">
+              <label for="plusTime">Дополнительное время (дни)</label>
+              <input
+                      v-model="route.plusTime"
+                      v-validate="'required|max:5'"
+                      type="text"
+                      class="form-control"
+                      name="plusTime"
+                      placeholder="0"
+              />
+              <div
+                      v-if="submitted && errors.has('plusTime')"
+                      class="alert-danger"
+              >{{errors.first('plusTime')}}</div>
+            </div></td>
             <td> <div class="form-group">
               <label for="dateFinish">Дата прибытия</label>
               <input
@@ -55,7 +71,7 @@
                       class="alert-danger"
               >{{errors.first('dateFinish')}}</div>
             </div></td>
-            <td colspan="4"><div class="form-group">
+            <td colspan="3"><div class="form-group">
               <label for="finish">Город прибытия</label>
               <input
                       v-model="route.finish"
@@ -71,7 +87,8 @@
               >{{errors.first('finish')}}</div>
             </div></td>
           </tr>
-          <tr>
+          <tr class="table-active">
+            <td class="haract">Характеристики груза</td>
             <td><div class="form-group">
               <label for="weight">Высота (м)</label>
               <input
@@ -132,23 +149,8 @@
                       class="alert-danger"
               >{{errors.first('width')}}</div>
             </div></td>
-            <td><div class="form-group">
-              <label for="plusTime">Дополнительное время (дни)</label>
-              <input
-                      v-model="route.plusTime"
-                      v-validate="'required|max:5'"
-                      type="text"
-                      class="form-control"
-                      name="plusTime"
-                      placeholder="0"
-              />
-              <div
-                      v-if="submitted && errors.has('plusTime')"
-                      class="alert-danger"
-              >{{errors.first('plusTime')}}</div>
-            </div></td>
           </tr>
-          <tr>
+          <tr class="table-active">
             <td colspan="4"><div class="form-group">
               <label for="comment">Комментарий</label>
               <input
@@ -165,7 +167,7 @@
               >{{errors.first('comment')}}</div>
             </div></td>
             <td><div class="form-group">
-              <button class="btn btn-primary btn-block">Добавить</button>
+              <button class="btn-down btn btn-primary btn-block">Добавить</button>
             </div>
             </td>
           </tr>
@@ -183,6 +185,7 @@
 
 <script>
   import Route from '../models/route';
+  import ShipService from '../services/ship.service';
 
   export default {
     name: 'Route',
@@ -197,25 +200,21 @@
 
     methods: {
       addNewRoute() {
-        this.message = '';
-        this.submitted = true;
-        this.$validator.validate().then(isValid => {
-          if (isValid) {
-            this.$store.dispatch('auth/addRoute', this.route).then(
-                    data => {
-                      this.message = data.message;
-                      this.successful = true;
-                    },
-                    error => {
-                      this.message =
-                              (error.response && error.response.data) ||
-                              error.message ||
-                              error.toString();
-                      this.successful = false;
-                    }
+        //this.message = '';
+        //this.submitted = true;
+       // this.$validator.validate().then(isValid => {
+          //if (isValid) {
+              ShipService.addRoute(this.route).then(
+                  response => {
+                    this.$router.push('/driver');
+                    return Promise.resolve(response.data);
+                          },
+                  error => {
+                            return Promise.reject(error);
+                         }
             );
-          }
-        });
+    //      }
+    //    });
       }
     }
   };
@@ -224,7 +223,18 @@
   table{
     width: 100%;
   }
-  td{
-    vertical-align: bottom;
+  .btn-down{
+    margin-top: 30px;
   }
+  .tr-blue{
+    background-color: rgba(38, 143, 255, 0.95);
+    color: white;
+  }
+  td{
+    padding: 5px 5px 5px 5px;
+  }
+  .haract{
+    font-size: 1.4rem;
+  }
+
 </style>

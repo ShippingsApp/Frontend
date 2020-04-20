@@ -12,11 +12,11 @@
             <th>Дата прибытия</th>
             <th>Город отправления</th>
             <th>Город прибытия</th>
+            <th>Доп. время (дн)</th>
             <th>Высота (м)</th>
             <th>Ширина (м)</th>
             <th>Длина (м)</th>
             <th>Вес (кг)</th>
-            <th>Доп. время (дн)</th>
             <th>Комментарий</th>
             <th><router-link to="/addRoute" class="btn btn-dark btn-sm">+</router-link></th>
         </tr>
@@ -27,13 +27,14 @@
               <td>{{ route.date_finish }}</td>
               <td>{{ route.start }}</td>
               <td>{{ route.finish }}</td>
+              <td>{{ route.plus_time }}</td>
               <td>{{ route.weight }}</td>
               <td>{{ route.height }}</td>
               <td>{{ route.length }}</td>
               <td>{{ route.width }}</td>
-              <td>{{ route.plus_time }}</td>
               <td>{{ route.comment }}</td>
               <td><router-link :to="'/editRoute/'+route.id" class="btn btn-sm">./</router-link></td>
+
             </tr>
         </tbody>
     </table>
@@ -42,7 +43,7 @@
 </template>
 
 <script>
-import UserService from '../services/user.service';
+import ShipService from '../services/ship.service';
 
 export default {
   name: 'list_route',
@@ -52,7 +53,7 @@ export default {
     };
   },
   mounted() {
-    UserService.getDriverBoard().then(
+    ShipService.getDriverBoard().then(
       response => {
         this.routes = response.data;
       },

@@ -1,38 +1,38 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Добавить маршрут</h3>
+      <h3>Изменить маршрут</h3>
     </header>
     <body>
-    <form name="form" @submit.prevent="addNewRoute">
+    <form name="form" @submit.prevent="editThisRoute">
       <div v-if="!successful">
         <table>
           <tr class="tr-blue">
             <td class="haract">Характеристики пути</td>
             <td><div class="form-group">
-          <label for="dateStart">Дата отправления</label>
-          <input
-                  v-model="route.dateStart"
-                  v-validate="'required|max:10'"
-                  type="text"
-                  class="form-control"
-                  name="dateStart"
-                  placeholder="ГГГГ-ММ-ДД"
-          />
-          <div
-                  v-if="submitted && errors.has('dateStart')"
-                  class="alert-danger"
-          >{{errors.first('dateStart')}}</div>
-        </div></td>
+              <label for="dateStart">Дата отправления</label>
+              <input
+                      v-model="route.dateStart"
+                      v-validate="'max:10'"
+                      type="text"
+                      class="form-control"
+                      name="dateStart"
+                      :placeholder="oldRoute.dateStart"
+              />
+              <div
+                      v-if="submitted && errors.has('dateStart')"
+                      class="alert-danger"
+              >{{errors.first('dateStart')}}</div>
+            </div></td>
             <td colspan="3"><div class="form-group">
               <label for="start">Город отправления</label>
               <input
                       v-model="route.start"
-                      v-validate="'required|max:30'"
+                      v-validate="'max:30'"
                       type="text"
                       class="form-control"
                       name="start"
-                      placeholder="Санкт-Петербург"
+                      :placeholder="oldRoute.start"
               />
               <div
                       v-if="submitted && errors.has('start')"
@@ -45,11 +45,11 @@
               <label for="plusTime">Дополнительное время (дни)</label>
               <input
                       v-model="route.plusTime"
-                      v-validate="'required|max:5'"
+                      v-validate="'max:5'"
                       type="text"
                       class="form-control"
                       name="plusTime"
-                      placeholder="0"
+                      :placeholder="oldRoute.plusTime"
               />
               <div
                       v-if="submitted && errors.has('plusTime')"
@@ -60,11 +60,11 @@
               <label for="dateFinish">Дата прибытия</label>
               <input
                       v-model="route.dateFinish"
-                      v-validate="'required|max:10'"
+                      v-validate="'max:10'"
                       type="text"
                       class="form-control"
                       name="dateFinish"
-                      placeholder="ГГГГ-ММ-ДД"
+                      :placeholder="oldRoute.dateFinish"
               />
               <div
                       v-if="submitted && errors.has('dateFinish')"
@@ -75,11 +75,11 @@
               <label for="finish">Город прибытия</label>
               <input
                       v-model="route.finish"
-                      v-validate="'required|max:30'"
+                      v-validate="'max:30'"
                       type="text"
                       class="form-control"
                       name="finish"
-                      placeholder="Волгоград"
+                      :placeholder="oldRoute.finish"
               />
               <div
                       v-if="submitted && errors.has('finish')"
@@ -93,11 +93,11 @@
               <label for="weight">Высота (м)</label>
               <input
                       v-model="route.weight"
-                      v-validate="'required|max:5'"
+                      v-validate="'max:5'"
                       type="text"
                       class="form-control"
                       name="weight"
-                      placeholder="0"
+                      :placeholder="oldRoute.weight"
               />
               <div
                       v-if="submitted && errors.has('weight')"
@@ -108,11 +108,11 @@
               <label for="height">Ширина (м)</label>
               <input
                       v-model="route.height"
-                      v-validate="'required|max:5'"
+                      v-validate="'max:5'"
                       type="text"
                       class="form-control"
                       name="height"
-                      placeholder="0"
+                      :placeholder="oldRoute.height"
               />
               <div
                       v-if="submitted && errors.has('height')"
@@ -123,11 +123,11 @@
               <label for="length">Длина (м)</label>
               <input
                       v-model="route.length"
-                      v-validate="'required|max:5'"
+                      v-validate="'max:5'"
                       type="text"
                       class="form-control"
                       name="length"
-                      placeholder="0"
+                      :placeholder="oldRoute.length"
               />
               <div
                       v-if="submitted && errors.has('length')"
@@ -138,11 +138,11 @@
               <label for="width">Вес (кг)</label>
               <input
                       v-model="route.width"
-                      v-validate="'required|max:5'"
+                      v-validate="'max:5'"
                       type="text"
                       class="form-control"
                       name="width"
-                      placeholder="0"
+                      :placeholder="oldRoute.width"
               />
               <div
                       v-if="submitted && errors.has('width')"
@@ -159,7 +159,7 @@
                       type="text"
                       class="form-control"
                       name="comment"
-                      placeholder="Сыпучий груз"
+                      :placeholder="oldRoute.comment"
               />
               <div
                       v-if="submitted && errors.has('comment')"
@@ -167,7 +167,7 @@
               >{{errors.first('comment')}}</div>
             </div></td>
             <td><div class="form-group">
-              <button class="btn-down btn btn-primary btn-block">Добавить</button>
+              <button class="btn-down btn btn-primary btn-block">Сохранить изменения</button>
             </div>
             </td>
           </tr>
@@ -184,37 +184,50 @@
 </template>
 
 <script>
-  import Route from '../models/route';
-  import ShipService from '../services/ship.service';
+  import Route from '../../../models/route';
+  import ShipService from '../../../services/ship.service';
 
   export default {
     name: 'Route',
     data() {
       return {
-        route: new Route('', '', '', '', '','', '', '', '', '',''),
+        route: new Route(this.$route.params.id,'', '', '', '', '','', '', '', '', '',''),
+        oldRoute: new Route('','', '', '', '', '','', '', '', '', '',''),
         submitted: false,
         successful: false,
         message: ''
       };
     },
-
+    mounted() {
+      ShipService.getRoute(this.$route.params.id).then(
+              response => {
+                this.oldRoute = response.data;
+              },
+              error => {
+                this.routes =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+              }
+      );
+    },
     methods: {
-      addNewRoute() {
-        //this.message = '';
-        //this.submitted = true;
-       // this.$validator.validate().then(isValid => {
-          //if (isValid) {
-              ShipService.addRoute(this.route).then(
-                  response => {
-                    this.$router.push('/driver');
-                    return Promise.resolve(response.data);
-                          },
-                  error => {
-                            return Promise.reject(error);
-                         }
+      editThisRoute() {
+        this.message = '';
+        this.submitted = true;
+        //this.$validator.validate().then(isValid => {
+        //  if (isValid) {
+            ShipService.editRoute(this.route).then(
+                    response => {
+                      this.$router.push('/driver');
+                      return Promise.resolve(response.data);
+                    },
+                    error => {
+                      return Promise.reject(error);
+                    }
             );
-    //      }
-    //    });
+         // }
+        //});
       }
     }
   };
@@ -236,5 +249,4 @@
   .haract{
     font-size: 1.4rem;
   }
-
 </style>

@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Мои поездки</h3>
+      <h3><router-link :to="'/pastDriver'" class="btn"><</router-link>
+          Мои текущие поездки
+      <router-link :to="'/driver'" class="btn">></router-link></h3>
     </header>
     <body>
 
@@ -33,7 +35,8 @@
               <td>{{ route.length }}</td>
               <td>{{ route.width }}</td>
               <td>{{ route.comment }}</td>
-              <td><router-link :to="'/editRoute/'+route.id" class="btn btn-sm">./</router-link></td>
+              <td><router-link :to="'/editRoute/'+route.id" class="btn btn-sm">./</router-link>
+                  <router-link :to="'/deleteRoute/'+route.id" class="btn btn-sm">X</router-link></td>
 
             </tr>
         </tbody>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import ShipService from '../services/ship.service';
+import ShipService from '../../../services/ship.service';
 
 export default {
   name: 'list_route',
@@ -53,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    ShipService.getDriverBoard().then(
+    ShipService.getDriverBoard(2).then(
       response => {
         this.routes = response.data;
       },

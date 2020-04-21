@@ -1,5 +1,5 @@
 export default class Route {
-  constructor(id, dateStart, dateFinish,start,finish,weight,height,length,width,plusTime,comment,status) {
+  constructor(id, dateStart, dateFinish,start,finish,weight,height,length,width,plusTime,comment,status,requests) {
     this.id = id;
     this.dateStart = dateStart;
     this.dateFinish = dateFinish;
@@ -12,5 +12,6 @@ export default class Route {
     this.plusTime = plusTime;
     this.comment = comment;
     this.status = status;
+    this.requests=requests;
   }
 }

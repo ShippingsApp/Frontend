@@ -4,8 +4,8 @@ import authHeader from './auth-header';
 const API_URL = 'http://localhost:8088/api/ship/';
 
 class ShipService {
-  getDriverBoard() {
-    return axios.get(API_URL + 'driver', { headers: authHeader() });
+  getDriverBoard(time_per) {
+    return axios.get(API_URL + 'driver?time_per='+time_per, { headers: authHeader() });
   }
 
   getDriverRequestBoard() {
@@ -53,6 +53,12 @@ class ShipService {
       id:id
     },{ headers: authHeader() });
   }
+
+  deleteRoute(id){
+        return axios.post(API_URL + 'deleteShip', {
+            id:id
+        },{ headers: authHeader() });
+    }
 
 
 }

@@ -21,7 +21,8 @@
 </template>
 
 <script>
-  import ShipService from '../services/ship.service';
+  import ShipService from '../../services/ship.service';
+  import Route from '../../models/route';
 
   export default {
     name: 'Route',

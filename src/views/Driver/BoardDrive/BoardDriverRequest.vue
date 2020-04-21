@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import ShipService from '../services/ship.service';
+import ShipService from '../../../services/ship.service';
 
 export default {
   name: 'DriverRequest',

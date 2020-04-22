@@ -16,6 +16,9 @@
         <li v-if="showClientBoard" class="nav-item">
           <router-link to="/client" class="nav-link">Поиск предложений</router-link>
         </li>
+        <li v-if="showClientBoard" class="nav-item">
+          <router-link to="/clientRequest" class="nav-link">Реквесты</router-link>
+        </li>
       </div>
 
       <div v-if="!currentUser" class="navbar-nav ml-auto">

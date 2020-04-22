@@ -9,6 +9,11 @@ import DeleteRoute from './views/Driver/Route/DeleteRoute.vue';
 import BoardRefuse from './views/Driver/BoardRefuse.vue';
 import BoardPresentDriver from './views/Driver/BoardDrive/BoardPresentDriver.vue';
 import BoardPastDriver from './views/Driver/BoardDrive/BoardPastDriver.vue';
+import BoardClientRequest from './views/Client/BoardClient/BoardClientRequest.vue';
+import BoardClientOldRequest from './views/Client/BoardClient/BoardClientOldRequest.vue';
+import AddRequest from './views/Client/Request/AddRequest.vue';
+import DeleteRequest from './views/Client/Request/DeleteRequest.vue';
+import EditRequest from './views/Client/Request/EditRequest.vue';
 Vue.use(Router);
 
 export const router = new Router({
@@ -35,13 +40,28 @@ export const router = new Router({
       path: '/addRoute',
       component: AddRoute
     },
+
+    {
+      path: '/addRequest',
+      component: AddRequest,
+    },
     {
       path: '/editRoute/:id',
       component: EditRoute
     },
+      {
+          path: '/editRequest/:id',
+          component: EditRequest
+      },
+
     {
       path: '/deleteRoute/:id',
       component: DeleteRoute
+    },
+
+    {
+      path: '/deleteRequest/:id',
+      component: DeleteRequest
     },
     {
        path: '/refuseShip/:id',
@@ -54,6 +74,18 @@ export const router = new Router({
     {
       path: '/pastDriver',
       component: BoardPastDriver
+    },
+    {
+      path: '/presentDriver',
+      component: BoardPresentDriver
+    },
+    {
+      path: '/clientRequest',
+      component: BoardClientRequest
+    },
+    {
+      path: '/clientRequestOld',
+      component: BoardClientOldRequest
     },
     {
       path: '/profile',
@@ -77,7 +109,7 @@ export const router = new Router({
       path: '/client',
       name: 'client',
       // lazy-loaded
-      component: () => import('./views/Client/BoardClient.vue')
+      component: () => import('./views/Client/BoardClient/BoardClient.vue')
     }
   ]
 });

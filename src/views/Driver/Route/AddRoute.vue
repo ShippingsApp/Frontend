@@ -36,15 +36,14 @@
                   <label for="start">Город отправления</label>
                   <input
                           ref="suggest"
-                          v-model="route.start"
-                          v-validate="'required|correct_address_city'"
+                          v-validate="'required'"
                           type="text"
                           class="form-control input"
                           name="startPoint"
                           placeholder="Введите адрес">
                 </div>
                 <div
-                        v-if="submitted && errors.has('correct_address_city')"
+                        v-if="submitted && errors.has('startPoint')"
                         class="alert-danger">
                   {{errors.first('startPoint')}}
                 </div>
@@ -56,7 +55,6 @@
             <td colspan="1"> <div class="form-group">
               <label for="dateFinish">Дата прибытия</label>
               <input
-                      v-model.trim="dateFinish"
                       v-model="route.dateFinish"
                       v-validate="'date_format:yyyy-MM-dd'"
                       type="text"
@@ -71,19 +69,25 @@
               </div>
             </div></td>
 
-            <td colspan="3"><div class="form-group">
-              <div class="width: 100%; height: 100%; position-relative">
-                <label for="finish">Город прибытия</label>
-                <input type="text" ref="suggest2" class="form-control input" placeholder="Введите адрес">
-                <!--button ref="button"
-                        class="btn-down btn btn-primary btn-block"
-                        v-on:click="processAdress(2)">Проверить на карте</button-->
+            <td colspan="3">
+              <div class="form-group">
+                <div class="width: 100%; height: 100%; position-relative">
+                  <label for="finish">Город прибытия</label>
+                  <input
+                          ref="suggest2"
+                          type="text"
+                          v-validate="'required'"
+                          class="form-control input"
+                          name="finishPoint"
+                          placeholder="Введите адрес">
+                </div>
               </div>
               <div
-                      v-if="point_error"
-                      class="alert-danger"
-              >{{point_error}}</div>
-            </div></td>
+                      v-if="submitted && errors.has('finishPoint')"
+                      class="alert-danger">
+                {{errors.first('finishPoint')}}
+              </div>
+            </td>
           </tr>
 
           <tr class="table-active">
@@ -212,7 +216,6 @@
             <td colspan="4" class="align-content-center">
               <div class="form-group">
                 <button type="submit"
-                        v-on:click="addNewRoute"
                         class="btn-down btn btn-primary btn-block">Добавить
                 </button>
               </div>
@@ -290,10 +293,10 @@
       await loadYmap(settings);
       ymaps.ready(this.initMap());
 
-      this.$validator.extend('correct_address_city', {
-        getMessage: field => 'Некорректный адрес',
-        validate: point => false
-      });
+      // this.$validator.extend('correct_address_city', {
+      //   getMessage: field => 'Некорректный адрес',
+      //   validate: point => true
+      // });
 
 
     },
@@ -305,6 +308,7 @@
         this.processAdress(1);
         this.processAdress(2);
 
+        console.log(this.route);
 
 
         this.$validator.validate().then(isValid => {
@@ -313,7 +317,7 @@
                     response => {
                       //this.$router.push('/driver');
                       this.message = response.message;
-                      this.successful = true;
+                      //this.successful = true;
                       return Promise.resolve(response.data);
                     },
                     error => {
@@ -321,7 +325,7 @@
                               (error.response && error.response.data) ||
                               error.message ||
                               error.toString();
-                      this.successful = false;
+                      //this.successful = false;
                       return Promise.reject(error);
                     }
             );
@@ -364,23 +368,22 @@
         // showMessage(address);
       },
       processAdress: function (point) {
+        let inputAddress = '';
         switch (point) {
           case 1:
-            var request = this.$refs.suggest.value;
+            inputAddress = this.$refs.suggest.value;
             break;
           case 2:
-            var request = this.$refs.suggest2.value;
+            inputAddress = this.$refs.suggest2.value;
             break;
         }
 
-        console.log('processingAddress');
-        console.log(request);
-        console.log(point);
+        //console.log('processingAddress ' + inputAddress);
 
-        ymaps.geocode(request).then(res => {
+        ymaps.geocode(inputAddress).then(res => {
 
           var obj = res.geoObjects.get(0), error, hint;
-          console.log(obj);
+          //console.log(obj.properties.get('metaDataProperty.GeocoderMetaData.kind'));
           if (obj) {
             switch (obj.properties.get('metaDataProperty.GeocoderMetaData.kind')) {
               case 'locality':
@@ -388,9 +391,9 @@
               case 'metro':
               case 'street':
               case 'house':
-                break;
               case 'area':
               case 'province':
+                break;
               case 'country':
               case 'region':
               case 'other':
@@ -405,23 +408,27 @@
 
 
           if (error) {
-            console.log("ERROR!!!");
+            // console.log("ERROR: " + error);
             //this.showError(elem, error);
           } else {
-            console.log("OK!!!!");
+            console.log("OK");
             switch (point) {
               case 1:
-                this.route.start = request;
+                this.route.start = inputAddress;
                 break;
               case 2:
-                this.route.finish = request;
+                this.route.finish = inputAddress;
                 break;
                     //this.showResult(obj);
             }
 
           }
         });
+
+        // console.log('finish processing address' + inputAddress);
       },
+
+
       showErrow(elem, error) {
         elem.text(error);
       }

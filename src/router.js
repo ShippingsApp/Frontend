@@ -9,6 +9,7 @@ import DeleteRoute from './views/Driver/Route/DeleteRoute.vue';
 import BoardRefuse from './views/Driver/BoardRefuse.vue';
 import BoardPresentDriver from './views/Driver/BoardDrive/BoardPresentDriver.vue';
 import BoardPastDriver from './views/Driver/BoardDrive/BoardPastDriver.vue';
+import BoardClient from "./views/Client/BoardClient/BoardClient";
 import BoardClientRequest from './views/Client/BoardClient/BoardClientRequest.vue';
 import BoardClientOldRequest from './views/Client/BoardClient/BoardClientOldRequest.vue';
 import AddRequest from './views/Client/Request/AddRequest.vue';
@@ -108,7 +109,7 @@ export const router = new Router({
       path: '/client',
       name: 'client',
       // lazy-loaded
-      component: () => import('./views/Client/BoardClient.vue')
+      component: () => import('./views/Client/BoardClient/BoardClient.vue')
     },
     {
       path: '/edit profile',

@@ -1,16 +1,11 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
       <form name="form" @submit.prevent="handleRegister">
         <div v-if="!successful">
 
           <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username">Имя пользователя</label>
             <input
               v-model="user.username"
               v-validate="'required|min:3|max:30'"
@@ -25,7 +20,7 @@
           </div>
 
           <div class="form-group">
-            <label for="realName">First Name, Surname</label>
+            <label for="realName">Имя и фамилия</label>
             <input
               v-model="user.realName"
               v-validate="'required|max:30'"
@@ -40,7 +35,7 @@
           </div>
 
           <div class="form-group">
-            <label for="chosenRole">Role</label>
+            <label for="chosenRole">Роль</label>
             <input
               v-model="user.chosenRole"
               v-validate="'required|max:10'"
@@ -55,7 +50,7 @@
           </div>
 
           <div class="form-group">
-            <label for="mobilePhone">Mobile Phone</label>
+            <label for="mobilePhone">Мобильный телефон</label>
             <input
               v-model="user.mobilePhone"
               v-validate="'required|max:15'"
@@ -70,7 +65,7 @@
           </div>
 
           <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password">Пароль</label>
             <input
               v-model="user.password"
               v-validate="'required|min:5|max:20'"
@@ -85,7 +80,7 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-primary btn-block">Sign Up</button>
+            <button class="btn btn-secondary btn-block">Зарегистрироваться</button>
           </div>
         </div>
       </form>
@@ -164,21 +159,6 @@ label {
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-}
 </style>

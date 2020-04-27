@@ -90,7 +90,6 @@ export const router = new Router({
     {
       path: '/profile',
       name: 'profile',
-      // lazy-loaded
       component: () => import('./views/Profile.vue')
     },
     {
@@ -109,7 +108,12 @@ export const router = new Router({
       path: '/client',
       name: 'client',
       // lazy-loaded
-      component: () => import('./views/Client/BoardClient/BoardClient.vue')
+      component: () => import('./views/Client/BoardClient.vue')
+    },
+    {
+      path: '/edit profile',
+      name: 'editProfile',
+      component: () => import('./views/EditProfile.vue')
     }
   ]
 });

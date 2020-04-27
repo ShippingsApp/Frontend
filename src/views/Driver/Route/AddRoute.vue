@@ -59,6 +59,7 @@
             <td> <div class="form-group">
               <label for="dateFinish">Дата прибытия</label>
               <input
+                      v-model.trim="dateFinish"
                       v-model="route.dateFinish"
                       v-validate="'required|max:10'"
                       type="text"
@@ -186,6 +187,7 @@
 <script>
   import Route from '../../../models/route';
   import ShipService from '../../../services/ship.service';
+  import { validationMixin } from 'vuelidate'
 
   export default {
     name: 'Route',
@@ -197,8 +199,17 @@
         message: ''
       };
     },
-
-    methods: {
+  validations:{
+    dateStart: {
+      required,
+      maxLength: maxLength(10)
+    },
+    dateFinish: {
+      required,
+      maxLength: maxLength(10)
+    },
+  },
+  methods: {
       addNewRoute() {
         //this.message = '';
         //this.submitted = true;

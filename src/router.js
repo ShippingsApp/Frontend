@@ -3,7 +3,12 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import Register from './views/Register.vue';
-
+import AddRoute from './views/Driver/Route/AddRoute.vue';
+import EditRoute from './views/Driver/Route/EditRoute.vue';
+import DeleteRoute from './views/Driver/Route/DeleteRoute.vue';
+import BoardRefuse from './views/Driver/BoardRefuse.vue';
+import BoardPresentDriver from './views/Driver/BoardDrive/BoardPresentDriver.vue';
+import BoardPastDriver from './views/Driver/BoardDrive/BoardPastDriver.vue';
 Vue.use(Router);
 
 export const router = new Router({
@@ -27,6 +32,30 @@ export const router = new Router({
       component: Register
     },
     {
+      path: '/addRoute',
+      component: AddRoute
+    },
+    {
+      path: '/editRoute/:id',
+      component: EditRoute
+    },
+    {
+      path: '/deleteRoute/:id',
+      component: DeleteRoute
+    },
+    {
+       path: '/refuseShip/:id',
+       component: BoardRefuse
+    },
+    {
+      path: '/presentDriver',
+      component: BoardPresentDriver
+    },
+    {
+      path: '/pastDriver',
+      component: BoardPastDriver
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: () => import('./views/Profile.vue')
@@ -34,12 +63,20 @@ export const router = new Router({
     {
       path: '/driver',
       name: 'driver',
-      component: () => import('./views/BoardDriver.vue')
+      // lazy-loaded
+      component: () => import('./views/Driver/BoardDrive/BoardDriver.vue')
+    },
+    {
+      path: '/driverRequest',
+          name: 'driverRequest',
+        // lazy-loaded
+        component: () => import('./views/Driver/BoardDrive/BoardDriverRequest.vue')
     },
     {
       path: '/client',
       name: 'client',
-      component: () => import('./views/BoardClient.vue')
+      // lazy-loaded
+      component: () => import('./views/Client/BoardClient.vue')
     },
     {
       path: '/edit profile',

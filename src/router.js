@@ -108,7 +108,7 @@ export const router = new Router({
       path: '/client',
       name: 'client',
       // lazy-loaded
-      component: () => import('./views/Client/BoardClient.vue')
+      component: () => import('./views/Client/BoardClient/BoardClient.vue')
     },
     {
       path: '/edit profile',

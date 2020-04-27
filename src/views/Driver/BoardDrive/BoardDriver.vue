@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3><router-link :to="'/presentDriver'" class="btn"><</router-link>
+      <h3><router-link :to="'/presentDriver'" class="btn"></router-link>
           Мои будущие поездки</h3>
     </header>
     <body>

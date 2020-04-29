@@ -6,11 +6,15 @@ import Register from './views/Register.vue';
 import AddRoute from './views/Driver/Route/AddRoute.vue';
 import EditRoute from './views/Driver/Route/EditRoute.vue';
 import DeleteRoute from './views/Driver/Route/DeleteRoute.vue';
-import BoardRefuse from './views/Driver/BoardRefuse.vue';
+import BoardRefuse from './views/Driver/Requests/BoardRefuse.vue';
+import BoardTake from './views/Driver/Requests/BoardTake.vue';
+import ShipRequest from './views/Driver/Requests/ShipRequest.vue';
+import ShipTakenRequest from './views/Driver/Requests/ShipTakenRequest.vue';
 import BoardPresentDriver from './views/Driver/BoardDrive/BoardPresentDriver.vue';
 import BoardPastDriver from './views/Driver/BoardDrive/BoardPastDriver.vue';
 import BoardClientRequest from './views/Client/BoardClient/BoardClientRequest.vue';
 import BoardClientOldRequest from './views/Client/BoardClient/BoardClientOldRequest.vue';
+import BoardClientRefusedRequest from './views/Client/BoardClient/BoardClientRefusedRequest.vue';
 import AddRequest from './views/Client/Request/AddRequest.vue';
 import DeleteRequest from './views/Client/Request/DeleteRequest.vue';
 import EditRequest from './views/Client/Request/EditRequest.vue';
@@ -68,6 +72,19 @@ export const router = new Router({
        component: BoardRefuse
     },
     {
+      path: '/takeShip/:id',
+      component: BoardTake
+    },
+    {
+      path: '/shipRequests/:id',
+      component: ShipRequest
+    },
+    {
+      path: '/shipTakenRequests/:id',
+      component: ShipTakenRequest
+    },
+
+    {
       path: '/presentDriver',
       component: BoardPresentDriver
     },
@@ -88,6 +105,10 @@ export const router = new Router({
       component: BoardClientOldRequest
     },
     {
+      path: '/clientRefusedRequest',
+      component: BoardClientRefusedRequest
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: () => import('./views/Profile.vue')
@@ -104,6 +125,12 @@ export const router = new Router({
         // lazy-loaded
         component: () => import('./views/Driver/BoardDrive/BoardDriverRequest.vue')
     },
+{
+  path: '/driverTakenRequest',
+      name: 'driverTakenRequest',
+    // lazy-loaded
+    component: () => import('./views/Driver/BoardDrive/BoardDriverTakenRequest.vue')
+},
     {
       path: '/client',
       name: 'client',

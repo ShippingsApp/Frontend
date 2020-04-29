@@ -8,8 +8,8 @@ class RequestService {
     return axios.get(API_URL + 'client', { headers: authHeader() });
   }
 
-  getClientRequestBoard(editable) {
-    return axios.get(API_URL + 'clientRequest?editable='+editable, { headers: authHeader() });
+  getClientRequestBoard(status) {
+    return axios.get(API_URL + 'clientRequest?status='+status, { headers: authHeader() });
   }
 
   addRequest(request) {

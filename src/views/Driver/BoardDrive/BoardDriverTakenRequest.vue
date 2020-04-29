@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Реквесты
-          <router-link to="/driverTakenRequest" class="btn btn-sm">-></router-link></h3>
+      <h3>  <router-link to="/driverRequest" class="btn btn-sm"><-</router-link>
+          Принятые реквесты</h3>
     </header>
     <body>
 
@@ -35,7 +35,7 @@
               <td>{{ route.length }}</td>
               <td>{{ route.width }}</td>
               <td>{{ route.comment }}</td>
-                <td><router-link :to="'/shipRequests/'+route.id" class="btn btn-sm">V</router-link></td>
+                <td><router-link :to="'/shipTakenRequests/'+route.id" class="btn btn-sm">V</router-link></td>
             </tr>
 
         </tbody>
@@ -56,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    ShipService.getDriverRequestBoard(0).then(
+    ShipService.getDriverRequestBoard(1).then(
       response => {
         this.routes = response.data;
       },

@@ -53,7 +53,7 @@ export default {
     };
   },
   mounted() {
-    RequestService.getClientRequestBoard(false).then(
+    RequestService.getClientRequestBoard(1).then(
       response => {
         this.requests = response.data;
       },

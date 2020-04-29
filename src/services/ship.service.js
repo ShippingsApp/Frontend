@@ -8,14 +8,17 @@ class ShipService {
     return axios.get(API_URL + 'driver?time_per='+time_per, { headers: authHeader() });
   }
 
-  getDriverRequestBoard() {
-        return axios.get(API_URL + 'driverRequest', { headers: authHeader() });
+  getDriverRequestBoard(status) {
+        return axios.get(API_URL + 'driverRequest?status='+status, { headers: authHeader() });
   }
 
   getRoute(id) {
     return axios.get(API_URL + 'getRoute?ID='+id, { headers: authHeader() });
   }
 
+  getShipRequest(id, status) {
+    return axios.get(API_URL + 'getShipRequests?ID='+id+'&status='+status, { headers: authHeader() });
+  }
 
   addRoute(route) {
     return axios.post(API_URL + 'routeup', {
@@ -53,6 +56,12 @@ class ShipService {
       id:id
     },{ headers: authHeader() });
   }
+  takeShip(id){
+    return axios.post(API_URL + 'takeShip', {
+      id:id
+    },{ headers: authHeader() });
+  }
+
 
   deleteRoute(id){
         return axios.post(API_URL + 'deleteShip', {

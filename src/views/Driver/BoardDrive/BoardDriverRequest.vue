@@ -11,8 +11,16 @@
         <tr>
             <th><label for="date_start">Дата отправления</label></th>
             <th><label for="date_finish">Дата прибытия</label></th>
-            <th><label for="start">Город отправления</label></th>
-            <th><label for="finish">Город прибытия</label></th>
+            <th>
+            <select v-model="start" >
+                    <option value="">Город отправления</option>
+                    <option v-for="(start) in uniqStarts">{{start}}</option>
+                </select>
+            </th>
+            <th><select v-model="finish" >
+                <option value="">Город прибытия</option>
+                <option v-for="(finish) in uniqFinishes">{{finish}}</option>
+            </select></th>
             <th><label for="plus_time">Доп. время (дн)</label></th>
             <th><label for="weight">Высота (м)</label></th>
             <th><label for="height">Ширина (м)</label></th>
@@ -24,7 +32,7 @@
         </thead>
         <tbody id="list_route">
 
-             <tr v-for="route in routes" :key="route.id">
+             <tr v-for="route in filteredList">
               <td>{{ route.date_start }}</td>
               <td>{{ route.date_finish }}</td>
               <td>{{ route.start }}</td>
@@ -52,10 +60,32 @@ export default {
   el: '#list_route',
   data() {
     return {
-      routes: []
+        start: '',
+        finish: '',
+        routes: []
     };
   },
-  mounted() {
+    computed:{
+        uniqStarts: function(){
+            return this.routes
+                .map((x) => x.start)
+                .reduce((r, с) => [...new Set(r.concat(с))], [])
+        },
+        uniqFinishes: function(){
+            return this.routes
+                .map((x) => x.finish)
+                .reduce((r, с) => [...new Set(r.concat(с))], [])
+        },
+        filteredList: function(){
+            var strt = this.start;
+            var fnsh = this.finish;
+            return this.routes.filter(function (elem) {
+                if(strt=='' && fnsh=='') return true;
+                else return (elem.start.indexOf(strt) > -1) && (elem.finish.indexOf(fnsh) > -1);
+            })
+        }
+    },
+    mounted() {
     ShipService.getDriverRequestBoard(0).then(
       response => {
         this.routes = response.data;

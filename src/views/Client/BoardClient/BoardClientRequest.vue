@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h3><router-link :to="'/clientRequestOld'" class="btn btn-sm"><</router-link>
-        Отвеченные реквесты</h3>
+        Принятые реквесты</h3>
     </header>
     <body>
     <table class="table table-hover table-sm">
@@ -33,7 +33,8 @@
         <td>{{ request.width }}</td>
         <td>{{ request.comment }}</td>
         <td>{{ request.price}}</td>
-        <td><router-link :to="'/deleteRequest/'+request.id" class="btn btn-sm">X</router-link></td>
+        <td><router-link :to="'/addComment/'+request.id" class="btn btn-sm">!</router-link>
+          <router-link :to="'/deleteRequest/'+request.id" class="btn btn-sm">X</router-link></td>
 
       </tr>
       </tbody>

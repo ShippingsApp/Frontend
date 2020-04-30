@@ -16,6 +16,7 @@ import BoardClientRequest from './views/Client/BoardClient/BoardClientRequest.vu
 import BoardClientOldRequest from './views/Client/BoardClient/BoardClientOldRequest.vue';
 import BoardClientRefusedRequest from './views/Client/BoardClient/BoardClientRefusedRequest.vue';
 import AddRequest from './views/Client/Request/AddRequest.vue';
+import AddComment from './views/Comment/AddComment.vue';
 import DeleteRequest from './views/Client/Request/DeleteRequest.vue';
 import EditRequest from './views/Client/Request/EditRequest.vue';
 Vue.use(Router);
@@ -48,6 +49,10 @@ export const router = new Router({
     {
       path: '/addRequest',
       component: AddRequest,
+    },
+    {
+      path: '/addComment/:id',
+      component: AddComment
     },
     {
       path: '/editRoute/:id',

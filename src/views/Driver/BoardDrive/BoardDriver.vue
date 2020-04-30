@@ -5,7 +5,6 @@
           Мои будущие поездки</h3>
     </header>
     <body>
-    <p></p>
 
     <table class="table table-hover table-sm">
         <thead class="thead-dark">
@@ -58,13 +57,13 @@ import ShipService from '../../../services/ship.service';
 
 export default {
   name: 'list_route',
-  data() {
-    return {
-      start:'',
-      finish:'',
-      routes: []
-    };
-  },
+    data: function () {
+        return {
+            start: '',
+            finish: '',
+            routes: []
+        };
+    },
   computed:{
       uniqStarts: function(){
           return this.routes

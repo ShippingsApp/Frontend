@@ -1,10 +1,9 @@
 export default class Request {
-  constructor(id, shipId, driverName,driverPhone, start,finish,weight,height,length,width,price,comment) {
+  constructor(id, shipId, driverName,driverPhone,userFromName, userFromPhone, start,finish,weight,height,length,width,price,comment) {
     this.id = id;
     this.shipId=shipId;
-    this.userFromName = driverName;
-    this.userFromPhone = driverPhone;
-
+    this.userFromName = userFromName;
+    this.userFromPhone = userFromPhone;
     this.driverName = driverName;
     this.driverPhone = driverPhone;
     this.start = start;

@@ -10,6 +10,7 @@ import BoardRefuse from './views/Driver/BoardRefuse.vue';
 import BoardPresentDriver from './views/Driver/BoardDrive/BoardPresentDriver.vue';
 import BoardPastDriver from './views/Driver/BoardDrive/BoardPastDriver.vue';
 import BoardClient from "./views/Client/BoardClient/BoardClient";
+import DisplayRoute from "./views/Driver/Route/DisplayRoute";
 import BoardClientRequest from './views/Client/BoardClient/BoardClientRequest.vue';
 import BoardClientOldRequest from './views/Client/BoardClient/BoardClientOldRequest.vue';
 import AddRequest from './views/Client/Request/AddRequest.vue';
@@ -61,6 +62,11 @@ export const router = new Router({
     },
 
     {
+      path: '/displayRoute/:id',
+      component: DisplayRoute
+    },
+
+    {
       path: '/deleteRequest/:id',
       component: DeleteRequest
     },
@@ -96,19 +102,16 @@ export const router = new Router({
     {
       path: '/driver',
       name: 'driver',
-      // lazy-loaded
       component: () => import('./views/Driver/BoardDrive/BoardDriver.vue')
     },
     {
       path: '/driverRequest',
           name: 'driverRequest',
-        // lazy-loaded
         component: () => import('./views/Driver/BoardDrive/BoardDriverRequest.vue')
     },
     {
       path: '/client',
       name: 'client',
-      // lazy-loaded
       component: () => import('./views/Client/BoardClient/BoardClient.vue')
     },
     {

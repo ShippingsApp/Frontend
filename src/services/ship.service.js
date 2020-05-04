@@ -67,9 +67,29 @@ class ShipService {
         return axios.post(API_URL + 'deleteShip', {
             id:id
         },{ headers: authHeader() });
-    }
+  }
 
+  getFilteredShippings(routeFilter) {
+    let url = API_URL + 'shippingsfiltered' +
+        '?startPoint=' + routeFilter.startPoint +
+        '&finishPoint=' + routeFilter.finishPoint;
 
+    if (routeFilter.startDate)
+      url += '&startDate=' + routeFilter.startDate;
+    if (routeFilter.finishDate)
+      url += '&finishDate=' + routeFilter.finishDate;
+    if (routeFilter.weight)
+      url += '&weight=' + routeFilter.weight;
+    if (routeFilter.height)
+      url += '&height=' + routeFilter.height;
+    if (routeFilter.length)
+      url += '&length=' + routeFilter.length;
+    if (routeFilter.width)
+      url += '&width=' + routeFilter.width;
+    return axios.get(url,
+        { headers: authHeader()}
+    );
+  }
 }
 
 export default new ShipService();

@@ -1,9 +1,8 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3><router-link :to="'/clientRefusedRequest'" class="btn btn-sm"><</router-link>
-        Не отвеченные реквесты
-        <router-link :to="'/clientRequest'" class="btn btn-sm">></router-link></h3>
+      <h3>Отказанные реквесты
+        <router-link :to="'/clientRequestOld'" class="btn btn-sm">></router-link></h3>
     </header>
     <body>
     <table class="table table-hover table-sm">
@@ -32,8 +31,7 @@
         <td>{{ request.width }}</td>
         <td>{{ request.comment }}</td>
         <td>{{ request.price}}</td>
-        <td><router-link :to="'/editRequest/'+request.id" class="btn btn-sm">./</router-link>
-        <router-link :to="'/deleteRequest/'+request.id" class="btn btn-sm">X</router-link></td>
+        <td><router-link :to="'/deleteRequest/'+request.id" class="btn btn-sm">X</router-link></td>
 
       </tr>
       </tbody>
@@ -53,7 +51,7 @@ export default {
     };
   },
   mounted() {
-    RequestService.getClientRequestBoard(0).then(
+    RequestService.getClientRequestBoard(-1).then(
       response => {
         this.requests = response.data;
       },

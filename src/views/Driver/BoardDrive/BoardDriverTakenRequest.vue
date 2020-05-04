@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Реквесты
-          <router-link to="/driverTakenRequest" class="btn btn-sm">-></router-link></h3>
+      <h3>  <router-link to="/driverRequest" class="btn btn-sm"><-</router-link>
+          Принятые реквесты</h3>
     </header>
     <body>
 
@@ -12,7 +12,7 @@
             <th><label for="date_start">Дата отправления</label></th>
             <th><label for="date_finish">Дата прибытия</label></th>
             <th>
-            <select v-model="start" >
+                <select v-model="start" >
                     <option value="">Город отправления</option>
                     <option v-for="(start) in uniqStarts">{{start}}</option>
                 </select>
@@ -43,7 +43,7 @@
               <td>{{ route.length }}</td>
               <td>{{ route.width }}</td>
               <td>{{ route.comment }}</td>
-                <td><router-link :to="'/shipRequests/'+route.id" class="btn btn-sm">V</router-link></td>
+                <td><router-link :to="'/shipTakenRequests/'+route.id" class="btn btn-sm">V</router-link></td>
             </tr>
 
         </tbody>
@@ -59,11 +59,11 @@ export default {
   name: 'DriverRequest',
   el: '#list_route',
   data() {
-    return {
-        start: '',
-        finish: '',
-        routes: []
-    };
+      return {
+          start: '',
+          finish: '',
+          routes: []
+      };
   },
     computed:{
         uniqStarts: function(){
@@ -85,8 +85,9 @@ export default {
             })
         }
     },
+
     mounted() {
-    ShipService.getDriverRequestBoard(0).then(
+    ShipService.getDriverRequestBoard(1).then(
       response => {
         this.routes = response.data;
       },

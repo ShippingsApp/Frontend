@@ -117,7 +117,7 @@
           <tr class="table-active">
             <td>
               <div class="form-group">
-                <label for="weight">Высота (м)</label>
+                <label for="weight">Высота (см)</label>
                 <input
                         v-model="route.weight"
                         v-validate="'required|max:5'"
@@ -136,7 +136,7 @@
 
             <td>
               <div class="form-group">
-                <label for="height">Ширина (м)</label>
+                <label for="height">Ширина (см)</label>
                 <input
                         v-model="route.height"
                         v-validate="'required|max:5'"
@@ -155,7 +155,7 @@
 
             <td>
               <div class="form-group">
-                <label for="length">Длина (м)</label>
+                <label for="length">Длина (см)</label>
                 <input
                         v-model="route.length"
                         v-validate="'required|max:5'"
@@ -226,37 +226,23 @@
       </div>
     </form>
 
-    <div
-            v-if="message"
-            class="alert"
-            :class="successful ? 'alert-success' : 'alert-danger'">
-      {{message}}
+
+
+    <div class="center">
+      <div v-if="message" class="alert text-center"
+              :class="successful ? 'alert-success' : 'alert-danger'">
+        {{message}}
+      </div>
+      <router-link :to="'/driver'" v-if="successful" class="btn btn-secondary btn-block text-center">
+        Вернуться к моим поездкам
+      </router-link>
+
+
+      <div v-show="successful">
+        <div  id="mapid" ref="mapref" style="max-width: 1000px; height: 400px; margin-top: 30px">
+        </div>
+      </div>
     </div>
-
-    <!--    <div>-->
-    <!--      <input type="text" ref="suggest3" class="input" placeholder="Введите адрес">-->
-    <!--      <button type="submit" ref="button" v-on:click="geocode">Проверить</button>-->
-    <!--    </div>-->
-
-    <!--    <yandex-map ref="addRouteMap"-->
-    <!--                :coords="coords_from"-->
-    <!--                :zoom="10"-->
-    <!--                style="width: 200px; height: 200px;"-->
-    <!--                @map-was-initialized="mapLoaded"-->
-    <!--    >-->
-    <!--    </yandex-map>-->
-
-    <!--    <div class="width: 100%; height: 100%; position-relative">-->
-    <!--      <label for="start">Город отправления</label>-->
-    <!--      <input type="text" ref="suggest3" class="form-control" placeholder="Введите адрес">-->
-    <!--      <button ref="button"-->
-    <!--              class="btn-down btn btn-primary btn-block"-->
-    <!--              v-on:click="processAdress(1)">Проверить на карте</button>-->
-    <!--    </div>-->
-
-    <div id="mapid" ref="mapref" style="width: 300px; height: 200px">
-    </div>
-
 
 
     </body>
@@ -267,7 +253,6 @@
 <script>
   import Route from '../../../models/route';
   import ShipService from '../../../services/ship.service';
-  //import { validationMixin } from 'vuelidate'
   import { loadYmap } from 'vue-yandex-maps'
 
   export default {
@@ -277,6 +262,10 @@
         route: new Route('', '', '', '', '', '', '', '', '', '', ''),
         submitted: false,
         successful: false,
+        startObjectFromGeocoder: null,
+        finishObjectFromGeocoder: null,
+        currMap: null,
+        currPlacemark: null,
         message: ''
       };
     },
@@ -301,73 +290,62 @@
 
     },
     methods: {
-      addNewRoute() {
-        this.message = '';
+      async addNewRoute() {
         this.submitted = true;
 
-        this.processAdress(1);
-        this.processAdress(2);
-
-        console.log(this.route);
-
+        await this.processAddress(1);
+        await this.processAddress(2);
 
         this.$validator.validate().then(isValid => {
           if (isValid) {
             ShipService.addRoute(this.route).then(
                     response => {
-                      //this.$router.push('/driver');
-                      this.message = response.message;
-                      //this.successful = true;
-                      return Promise.resolve(response.data);
+                      this.message = response.data.message;
+                      this.successful = true;
+                      this.showRoute(this.startObjectFromGeocoder, this.finishObjectFromGeocoder)
                     },
                     error => {
                       this.message =
                               (error.response && error.response.data) ||
                               error.message ||
                               error.toString();
-                      //this.successful = false;
-                      return Promise.reject(error);
+                      this.successful = false;
                     }
             );
           }
         });
-
-
-
-
-        //      }
-        //    });
       },
       initMap: function () {
-        console.log('!');
         var suggestView1 = new ymaps.SuggestView(this.$refs.suggest), map, placemark;
         var suggestView2 = new ymaps.SuggestView(this.$refs.suggest2);
 
-        map = new ymaps.Map(this.$refs.mapref, {
-          center: [55.74954, 37.621587],
-          zoom: 10,
-          style: 'width: 200px; min-height: 200px; width: 100%; height: 100%'
+        this.currMap = map;
+        this.currPlacemark = placemark;
+
+      },
+      showRoute : function(startObjectFromGeocoder, finishObjectFromGeocoder) {
+        var multiRoute = new ymaps.multiRouter.MultiRoute({
+          referencePoints: [
+            startObjectFromGeocoder.geometry.getCoordinates(),
+            finishObjectFromGeocoder.geometry.getCoordinates()
+          ],
+          params: {
+            results: 1
+          }
+        }, {
+          boundsAutoApply: true
         });
 
-      },
-      showResult : function(objectFromGeocoder) {
-        //this.$refs.suggest.removeClass('input_error');
-        //$('#notice').css('display', 'none');
+        this.currMap = new ymaps.Map(this.$refs.mapref, {
+          center: startObjectFromGeocoder.geometry.getCoordinates(),
+          zoom: 5,
+          controls: []
+        });
 
-        var mapContainer = $('#map'),
-                bounds = objectFromGeocoder.properties.get('boundedBy'),
-                mapState = ymaps.util.bounds.getCenterAndZoom(
-                        bounds,
-                        [mapContainer.width(), mapContainer.height()]
-                ),
-                address = [objectFromGeocoder.getCountry(), objectFromGeocoder.getAddressLine()].join(', '),
-                shortAddress = [objectFromGeocoder.getThoroughfare(), objectFromGeocoder.getPremiseNumber(), objectFromGeocoder.getPremise()].join(' ');
-        // Убираем контролы с карты.
-        mapState.controls = [];
-        createMap(mapState, shortAddress);
-        // showMessage(address);
+        this.currMap.geoObjects.add(multiRoute);
       },
-      processAdress: function (point) {
+
+      async processAddress(point) {
         let inputAddress = '';
         switch (point) {
           case 1:
@@ -378,12 +356,10 @@
             break;
         }
 
-        //console.log('processingAddress ' + inputAddress);
-
-        ymaps.geocode(inputAddress).then(res => {
-
-          var obj = res.geoObjects.get(0), error, hint;
-          //console.log(obj.properties.get('metaDataProperty.GeocoderMetaData.kind'));
+        var obj = await ymaps.geocode(inputAddress).then(geocodeResponse => {
+          return geocodeResponse.geoObjects.get(0);
+        });
+        var error, hint;
           if (obj) {
             switch (obj.properties.get('metaDataProperty.GeocoderMetaData.kind')) {
               case 'locality':
@@ -399,11 +375,9 @@
               case 'other':
               default:
                 error = 'Неточный адрес, требуется уточнение';
-                hint = 'Уточните город/поселение';
             }
           } else {
             error = 'Адрес не найден';
-            hint = 'Введите корректный адрес';
           }
 
 
@@ -411,58 +385,26 @@
             // console.log("ERROR: " + error);
             //this.showError(elem, error);
           } else {
-            console.log("OK");
+            //console.log("OK");
             switch (point) {
               case 1:
                 this.route.start = inputAddress;
+                this.startObjectFromGeocoder = obj;
                 break;
               case 2:
                 this.route.finish = inputAddress;
+                this.finishObjectFromGeocoder = obj;
                 break;
-                    //this.showResult(obj);
             }
-
           }
-        });
-
-        // console.log('finish processing address' + inputAddress);
       },
-
-
-      showErrow(elem, error) {
-        elem.text(error);
-      }
-      // editMap : function(state, caption) {
-      //
-      //
-      //     if (!map) {
-      //       map = new ymaps.Map('map', state);
-      //       placemark = new ymaps.Placemark(
-      //               map.getCenter(), {
-      //                 iconCaption: caption,
-      //                 balloonContent: caption
-      //               }, {
-      //                 preset: 'islands#redDotIconWithCaption'
-      //               });
-      //       map.geoObjects.add(placemark);
-      //       // Если карта есть, то выставляем новый центр карты и меняем данные и позицию метки в соответствии с найденным адресом.
-      //     } else {
-      //       map.setCenter(state.center, state.zoom);
-      //       placemark.geometry.setCoordinates(state.center);
-      //       placemark.properties.set({iconCaption: caption, balloonContent: caption});
-      //     }
-      //
-      // }
     }
 
   };
 </script>
 <style>
-  /*table{*/
-  /*  width: 100%;*/
-  /*}*/
 
-  table.center {
+  .center {
     width:60%;
     margin-left:20%;
     margin-right:20%;

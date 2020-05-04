@@ -85,7 +85,6 @@ export default {
                 }
 
                 if (this.newRealName && this.newMobilePhone) {
-
                     this.$store.dispatch('auth/updateUser',
                         [this.newRealName, this.newMobilePhone])
                         .then(

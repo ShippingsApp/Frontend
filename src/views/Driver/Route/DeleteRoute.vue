@@ -7,15 +7,49 @@
     <form name="form" @submit.prevent="delThisRoute">
       <div v-if="!successful">
         <div class="form-group">
-          <div class="form-group">
-            <p>Вы действительно хотите удалить маршрут
-              {{oldRoute.start}} - {{oldRoute.finish}} ? </p>
-            <button class="btn btn-primary btn-block btn-dark">Удалить</button>
-          </div>
+
+            <div class="card">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="top-buffer font-weight-bold text-center"><h4 class="text-center">Маршрут</h4></div>
+                  <div class="row top-buffer">
+                    <div class="col-sm-3 light-color">Точка отправления: </div>
+                    <div class="col-sm-3">{{oldRoute.start}}</div>
+                    <div class="col-sm-3 light-color">Точка прибытия: </div>
+                    <div class="col-sm-3">{{oldRoute.finish}}</div>
+                  </div>
+                  <div class="row top-buffer">
+                    <div class="col-sm-3 light-color">Дата отправления:: </div>
+                    <div class="col-sm-3">{{oldRoute.dateStart}}</div>
+                    <div class="col-sm-3 light-color">Дата прибытия: </div>
+                    <div class="col-sm-3">{{oldRoute.dateFinish}}</div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="top-buffer font-weight-bold"><h4 class="text-center">Параметры груза</h4></div>
+              <div class="row top-buffer">
+                <div class="col-sm-4 light-color">Вес: </div>
+                <div class="col-sm-2">{{oldRoute.weight}}кг</div>
+                <div class="col-sm-4 light-color">Длина: </div>
+                <div class="col-sm-2">{{oldRoute.length}}см</div>
+              </div>
+              <div class="row top-buffer">
+                <div class="col-sm-4 light-color">Ширина: </div>
+                <div class="col-sm-2">{{oldRoute.width}}см</div>
+                <div class="col-sm-4 light-color">Высота: </div>
+                <div class="col-sm-2">{{oldRoute.height}}см</div>
+              </div>
+              <br>
+              <button class="btn btn-primary btn-block btn-dark">Удалить</button>
+              <router-link :to="'/driver'" class="btn btn-secondary btn-block">Вернуться к маршрутам</router-link>
+            </div>
+
         </div>
       </div>
     </form>
-    <router-link :to="'/driver'" class="btn btn-primary btn-block">Вернуться к маршрутам</router-link>
+
     </body>
   </div>
 </template>
@@ -68,17 +102,9 @@
   table{
     width: 100%;
   }
-  .btn-down{
-    margin-top: 30px;
-  }
-  .tr-blue{
-    background-color: rgba(38, 143, 255, 0.95);
-    color: white;
-  }
+
   td{
     padding: 5px 5px 5px 5px;
   }
-  .haract{
-    font-size: 1.4rem;
-  }
+
 </style>

@@ -5,58 +5,113 @@
     </header>
     <body>
 
-    <form name="form" @submit.prevent="editThisRequest">
-      <div v-if="!successful">
-        <table>
-          {{oldRequest.start}} - {{oldRequest.finish}}
-          <tr class="table-active">
-            <td><div class="form-group">
-              <label for="price">Цена (руб)</label>
-              <input
-                      v-model="request.price"
-                      v-validate="'max:10'"
-                      type="text"
-                      class="form-control"
-                      name="price"
-                      :placeholder="oldRequest.price"
-              />
-              <div
-                      v-if="submitted && errors.has('comment')"
-                      class="alert-danger"
-              >{{errors.first('comment')}}</div>
-            </div>
-            </td>
-            <td colspan="3">
-              <div class="form-group">
-                <label for="comment">Комментарий</label>
-                <input
-                        v-model="request.comment"
-                        v-validate="'max:50'"
-                        type="text"
-                        class="form-control"
-                        name="comment"
-                        :placeholder="oldRequest.comment"
-                />
-                <div
-                        v-if="submitted && errors.has('comment')"
-                        class="alert-danger"
-                >{{errors.first('comment')}}</div>
-              </div>
-            </td>
+    <div v-if="!successful">
+      <div class="card card-container">
+        <form name="form" @submit.prevent="editThisRequest">
+          <div class="form-group row">
+            <label for="requestStart" class="col-sm-4 col-form-label">Стартовая точка:</label>
+            <input
+                    v-model="request.start"
+                    type="text"
+                    class="form-control col-sm-8"
+                    name="requestStart"
+                    :placeholder="oldRequest.start"
+            />
+            <div v-if="errors.has('requestStart')" class="alert-danger">Требуется стартовая точка</div>
+          </div>
 
-          </tr>
-          <tr class="table-active">
-            <td colspan="2"><div class="form-group">
-              <router-link to="/clientRequestOld" class="btn-down btn btn-primary btn-block">Вернуться к запросам</router-link>
-            </div>
-            <td colspan="2"><div class="form-group">
-              <button class="btn-down btn btn-primary btn-block">Сохранить</button>
-            </div>
-            </td>
-          </tr>
-        </table>
+          <div class="form-group row">
+            <label for="requestFinish" class="col-sm-4 col-form-label">Конечная точка:</label>
+            <input
+                    v-model="request.finish"
+                    v-validate="'required'"
+                    type="text"
+                    class="form-control col-sm-8"
+                    name="requestFinish"
+                    :placeholder="oldRequest.finish"
+            />
+            <div v-if="errors.has('requestFinish')" class="alert-danger">Введите конечную точку</div>
+          </div>
+
+          <div class="form-group row">
+            <label for="requestWeight" class="col-sm-2 col-form-label">Вес (кг):</label>
+            <input
+                    v-model="request.weight"
+                    v-validate="'required|decimal:6'"
+                    type="text"
+                    class="form-control col-sm-1"
+                    name="requestWeight"
+                    :placeholder="oldRequest.weight"
+            />
+            <div v-if="errors.has('requestWeight')" class="alert-danger">Введите вес</div>
+
+            <label for="requestHeight" class="col-sm-2 col-form-label">Высота (см):</label>
+            <input
+                    v-model="request.height"
+                    v-validate="'required|decimal:6'"
+                    type="text"
+                    class="form-control col-sm-1"
+                    name="requestHeight"
+                    :placeholder="oldRequest.height"
+            />
+            <div v-if="errors.has('requestHeight')" class="alert-danger">Введите высоту</div>
+
+            <label for="requestWidth" class="col-sm-2 col-form-label">Ширина (см):</label>
+            <input
+                    v-model="request.width"
+                    v-validate="'required|decimal:6'"
+                    type="text"
+                    class="form-control col-sm-1"
+                    name="requestWidth"
+                    :placeholder="oldRequest.width"
+            />
+            <div v-if="errors.has('requestWidth')" class="alert-danger">Введите ширину</div>
+
+            <label for="requestLength" class="col-sm-2 col-form-label">Длина (см):</label>
+            <input
+                    v-model="request.length"
+                    v-validate="'required|decimal:6'"
+                    type="text"
+                    class="form-control col-sm-1"
+                    name="requestLength"
+                    :placeholder="oldRequest.length"
+            />
+            <div v-if="errors.has('requestLength')" class="alert-danger">Введите ширину</div>
+          </div>
+
+          <div class="form-group row">
+            <label for="requestComment" class="col-sm-4 col-form-label">Комментарий водителю:</label>
+            <input
+                    v-model="request.comment"
+                    type="text"
+                    class="form-control col-sm-8"
+                    name="requestComment"
+                    :placeholder="oldRequest.comment"
+            />
+          </div>
+
+          <div class="form-group row">
+            <label for="requestPrice" class="col-sm-6 col-form-label">Предполагаемая стоимость перевозки:</label>
+            <input
+                    v-model="request.price"
+                    type="text"
+                    v-validate="'decimal:6'"
+                    class="form-control col-sm-6"
+                    name="requestPrice"
+                    :placeholder="oldRequest.price"
+            />
+            <div v-if="errors.has('requestPrice')" class="alert-danger">Введите цену</div>
+          </div>
+
+          <div class="form-group custom-padding">
+            <button class="btn btn-secondary btn-block">
+              <span>Сохранить изменения</span>
+            </button>
+          </div>
+
+        </form>
       </div>
-    </form>
+    </div>
     <div
             v-if="message"
             class="alert"

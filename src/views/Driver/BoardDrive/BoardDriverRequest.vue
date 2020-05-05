@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h3>Реквесты
-          <router-link to="/driverTakenRequest" class="btn btn-sm">-></router-link></h3>
+          <router-link to="/driverTakenRequest" class="btn btn-sm"><font-awesome-icon icon="chevron-right" /></router-link></h3>
     </header>
     <body>
 
@@ -22,12 +22,12 @@
                 <option v-for="(finish) in uniqFinishes">{{finish}}</option>
             </select></th>
             <th><label for="plus_time">Доп. время (дн)</label></th>
-            <th><label for="weight">Высота (м)</label></th>
-            <th><label for="height">Ширина (м)</label></th>
-            <th><label for="length">Длина (м)</label></th>
+            <th><label for="weight">Высота (см)</label></th>
+            <th><label for="height">Ширина (см)</label></th>
+            <th><label for="length">Длина (см)</label></th>
             <th><label for="width">Вес (кг)</label></th>
             <th><label for="comment">Комментарий</label></th>
-            <th><button class="btn btn-dark btn-sm">?</button></th>
+            <th><button class="btn btn-dark btn-sm"></button></th>
         </tr>
         </thead>
         <tbody id="list_route">
@@ -43,7 +43,7 @@
               <td>{{ route.length }}</td>
               <td>{{ route.width }}</td>
               <td>{{ route.comment }}</td>
-                <td><router-link :to="'/shipRequests/'+route.id" class="btn btn-sm">V</router-link></td>
+                <td><router-link :to="'/shipRequests/'+route.id" class="btn btn-sm"><font-awesome-icon icon="chevron-down" /></router-link></td>
             </tr>
 
         </tbody>

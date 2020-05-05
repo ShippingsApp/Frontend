@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h3>Отказанные реквесты
-        <router-link :to="'/clientRequestOld'" class="btn btn-sm">></router-link></h3>
+        <router-link :to="'/clientRequestOld'" class="btn btn-sm"><font-awesome-icon icon="chevron-right" /></router-link></h3>
     </header>
     <body>
     <table class="table table-hover table-sm">
@@ -11,9 +11,9 @@
         <th>Ник водителя</th>
         <th>Город отправления</th>
         <th>Город прибытия</th>
-        <th>Высота (м)</th>
-        <th>Ширина (м)</th>
-        <th>Длина (м)</th>
+        <th>Высота (см)</th>
+        <th>Ширина (см)</th>
+        <th>Длина (см)</th>
         <th>Вес (кг)</th>
         <th>Комментарий</th>
         <th>Цена (руб.)</th>
@@ -22,7 +22,7 @@
       </thead>
       <tbody id="list_request">
       <tr v-for="request in requests" :key="request.id">
-        <td>{{ request.driverName }}</td>
+        <td><router-link :to="'/comment/'+request.driverName" class="btn btn-sm">{{ request.driverName }}</router-link></td>
         <td>{{ request.start }}</td>
         <td>{{ request.finish }}</td>
         <td>{{ request.weight }}</td>
@@ -31,7 +31,7 @@
         <td>{{ request.width }}</td>
         <td>{{ request.comment }}</td>
         <td>{{ request.price}}</td>
-        <td><router-link :to="'/deleteRequest/'+request.id" class="btn btn-sm">X</router-link></td>
+        <td><router-link :to="'/deleteRequest/'+request.id" class="btn btn-sm"><font-awesome-icon icon="trash-alt" /></router-link></td>
 
       </tr>
       </tbody>

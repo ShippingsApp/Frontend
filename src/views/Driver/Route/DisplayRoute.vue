@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <add-request :started-creating-request="startedCreatingRequest"/>
+        <add-request :started-creating-request="startedCreatingRequest"  :ship-id="route.id"/>
 
 
     </div>

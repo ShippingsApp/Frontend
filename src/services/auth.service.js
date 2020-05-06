@@ -31,42 +31,6 @@ class AuthService {
       mobilePhone: user.mobilePhone
     });
   }
- //
- // addRoute(route) {
- //    return axios.post(API_URL + 'routeup', {
- //      dateStart: route.dateStart,
- //      dateFinish: route.dateFinish,
- //      start: route.start,
- //      finish: route.finish,
- //      weight:route.weight,
- //      height:route.height,
- //      length:route.length,
- //      width:route.width,
- //      plusTime:route.plusTime,
- //      comment: route.comment
- //    });
- //  }
- //  editRoute(route) {
- //    return axios.post(API_URL + 'routedit', {
- //      id: route.id,
- //      dateStart: route.dateStart,
- //      dateFinish: route.dateFinish,
- //      start: route.start,
- //      finish: route.finish,
- //      weight:route.weight,
- //      height:route.height,
- //      length:route.length,
- //      width:route.width,
- //      plusTime:route.plusTime,
- //      comment: route.comment
- //    });
- //  }
- //
- //  refuseShip(id){
- //      return axios.post(API_URL + 'refuseShip', {
- //            id:id
- //        });
- //  }
 }
 
 export default new AuthService();

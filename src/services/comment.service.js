@@ -11,6 +11,14 @@ class CommService {
       comment: comment.comment
     },{ headers: authHeader() });
   }
+
+  getDriverComments(driverName){
+    return axios.get(API_URL + 'getComments?driverName='+driverName, { headers: authHeader() });
+  }
+
+  getDriverRate(driverName){
+    return axios.get(API_URL + 'getRate?driverName='+driverName, { headers: authHeader() });
+  }
 }
 
 export default new CommService();

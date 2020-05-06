@@ -54,6 +54,7 @@
 <script>
   import Request from '../../../models/request.js';
   import RequestService from '../../../services/rqst.service';
+  import ShipService from '../../../services/ship.service';
 
   export default {
     name: 'Request',

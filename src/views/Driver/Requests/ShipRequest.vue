@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Реквесты</h3>
+      <h3>Заявки</h3>
     </header>
     <body>
 

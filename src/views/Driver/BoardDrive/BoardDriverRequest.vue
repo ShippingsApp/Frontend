@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Реквесты
+      <h3>Заявки
           <router-link to="/driverTakenRequest" class="btn btn-sm"><font-awesome-icon icon="chevron-right" /></router-link></h3>
     </header>
     <body>

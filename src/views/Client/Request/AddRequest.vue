@@ -124,7 +124,7 @@
     name: 'add-request',
     props: {
       startedCreatingRequest: Boolean,
-      routeId: Number
+      shipId: Number
     },
     data() {
       return {
@@ -137,6 +137,7 @@
     },
     methods: {
       addNewRequest() {
+        this.request.shipId = this.shipId;
         this.submitted = true;
         this.$validator.validate().then(isValid => {
           if (isValid) {

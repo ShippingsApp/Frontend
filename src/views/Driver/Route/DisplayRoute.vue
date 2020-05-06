@@ -52,9 +52,7 @@
             </div>
         </div>
 
-        <add-request :started-creating-request="startedCreatingRequest"  :ship-id="route.id"/>
-
-
+        <add-request :started-creating-request="startedCreatingRequest" :ship-id="route.id"/>
     </div>
 
 </template>
@@ -113,7 +111,6 @@
                 await this.processAddress(this.route.finish).then(obj => {
                     finishObjectFromGeocoder = obj;
                 });
-                //let finishObjectFromGeocoder = this.processAddress(this.route.finish);
 
 
                 var multiRoute = new ymaps.multiRouter.MultiRoute({

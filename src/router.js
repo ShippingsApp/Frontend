@@ -144,7 +144,6 @@ export const router = new Router({
 {
   path: '/driverTakenRequest',
       name: 'driverTakenRequest',
-    // lazy-loaded
     component: () => import('./views/Driver/BoardDrive/BoardDriverTakenRequest.vue')
 },
     {

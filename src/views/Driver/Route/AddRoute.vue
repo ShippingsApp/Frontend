@@ -19,14 +19,11 @@
                         v-validate="'required|date_format:yyyy-mm-dd'"
                         type="text"
                         class="form-control"
-                        name="date_format_field"
+                        v-bind:class="{ 'alert-danger' : submitted && errors.has('dateStart')}"
+                        name="dateStart"
                         placeholder="ГГГГ-ММ-ДД"
                 />
-                <div
-                        v-if="submitted && errors.has('dateStart')"
-                        class="alert-danger">
-                  Введите дату в формате ГГГГ-ММ-ДД
-                </div>
+                <div v-if="submitted && errors.has('dateStart')" class="alert-danger">Введите дату в формате ГГГГ-ММ-ДД</div>
               </div>
             </td>
 
@@ -36,17 +33,14 @@
                   <label for="start">Город отправления</label>
                   <input
                           ref="suggest"
-                          v-validate="'required'"
+                          v-validate="'required|address_city_from'"
                           type="text"
                           class="form-control input"
+                          v-bind:class="{ 'alert-danger' : submitted && errors.has('startPoint')}"
                           name="startPoint"
                           placeholder="Введите адрес">
                 </div>
-                <div
-                        v-if="submitted && errors.has('startPoint')"
-                        class="alert-danger">
-                  {{errors.first('startPoint')}}
-                </div>
+                <div v-if="submitted && errors.has('startPoint')" class="alert-danger">{{errors.first('startPoint')}}</div>
               </div>
             </td>
           </tr>
@@ -56,17 +50,14 @@
               <label for="dateFinish">Дата прибытия</label>
               <input
                       v-model="route.dateFinish"
-                      v-validate="'date_format:yyyy-MM-dd'"
+                      v-validate="'required|date_format:yyyy-MM-dd'"
                       type="text"
                       class="form-control"
+                      v-bind:class="{ 'alert-danger' : submitted && errors.has('dateFinish')}"
                       name="dateFinish"
                       placeholder="ГГГГ-ММ-ДД"
               />
-              <div
-                      v-if="submitted && errors.has('dateFinish')"
-                      class="alert-danger">
-                Введите дату в формате ГГГГ-ММ-ДД
-              </div>
+              <div v-if="submitted && errors.has('dateFinish')" class="alert-danger">Введите дату в формате ГГГГ-ММ-ДД</div>
             </div></td>
 
             <td colspan="3">
@@ -76,17 +67,14 @@
                   <input
                           ref="suggest2"
                           type="text"
-                          v-validate="'required'"
+                          v-validate="'required|address_city_to'"
                           class="form-control input"
+                          v-bind:class="{ 'alert-danger' : submitted && errors.has('finishPoint')}"
                           name="finishPoint"
                           placeholder="Введите адрес">
                 </div>
               </div>
-              <div
-                      v-if="submitted && errors.has('finishPoint')"
-                      class="alert-danger">
-                {{errors.first('finishPoint')}}
-              </div>
+              <div v-if="submitted && errors.has('finishPoint')" class="alert-danger">{{errors.first('finishPoint')}}</div>
             </td>
           </tr>
 
@@ -99,14 +87,11 @@
                         v-validate="'required|max:5'"
                         type="text"
                         class="form-control"
+                        v-bind:class="{ 'alert-danger' : submitted && errors.has('plusTime')}"
                         name="plusTime"
                         placeholder="0"
                 />
-                <div
-                        v-if="submitted && errors.has('plusTime')"
-                        class="alert-danger"
-                >{{errors.first('plusTime')}}</div>
-              </div>
+                </div>
             </td>
           </tr>
 
@@ -117,39 +102,31 @@
           <tr class="table-active">
             <td>
               <div class="form-group">
-                <label for="weight">Высота (см)</label>
-                <input
-                        v-model="route.weight"
-                        v-validate="'required|max:5'"
-                        type="text"
-                        class="form-control"
-                        name="weight"
-                        placeholder="0"
-                />
-                <div
-                        v-if="submitted && errors.has('weight')"
-                        class="alert-danger">
-                  {{errors.first('weight')}}
-                </div>
-              </div>
-            </td>
-
-            <td>
-              <div class="form-group">
-                <label for="height">Ширина (см)</label>
+                <label for="height">Высота (см)</label>
                 <input
                         v-model="route.height"
                         v-validate="'required|max:5'"
                         type="text"
                         class="form-control"
+                        v-bind:class="{ 'alert-danger' : submitted && errors.has('height')}"
                         name="height"
                         placeholder="0"
                 />
-                <div
-                        v-if="submitted && errors.has('height')"
-                        class="alert-danger">
-                  {{errors.first('height')}}
-                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="form-group">
+                <label for="width">Ширина (см)</label>
+                <input
+                        v-model="route.width"
+                        v-validate="'required|max:5'"
+                        type="text"
+                        class="form-control"
+                        v-bind:class="{ 'alert-danger' : submitted && errors.has('width')}"
+                        name="width"
+                        placeholder="0"
+                />
               </div>
             </td>
 
@@ -161,32 +138,25 @@
                         v-validate="'required|max:5'"
                         type="text"
                         class="form-control"
+                        v-bind:class="{ 'alert-danger' : submitted && errors.has('length')}"
                         name="length"
                         placeholder="0"
                 />
-                <div
-                        v-if="submitted && errors.has('length')"
-                        class="alert-danger"
-                >{{errors.first('length')}}
-                </div>
               </div>
             </td>
 
             <td>
               <div class="form-group">
-                <label for="width">Вес (кг)</label>
+                <label for="weight">Вес (кг)</label>
                 <input
-                        v-model="route.width"
+                        v-model="route.weight"
                         v-validate="'required|max:5'"
                         type="text"
                         class="form-control"
-                        name="width"
+                        v-bind:class="{ 'alert-danger' : submitted && errors.has('weight')}"
+                        name="weight"
                         placeholder="0"
                 />
-                <div
-                        v-if="submitted && errors.has('width')"
-                        class="alert-danger"
-                >{{errors.first('width')}}</div>
               </div>
             </td>
           </tr>
@@ -197,17 +167,13 @@
                 <label for="comment">Комментарий</label>
                 <input
                         v-model="route.comment"
-                        v-validate="'max:50'"
+                        v-validate="'max:100'"
                         type="text"
                         class="form-control"
+                        v-bind:class="{ 'alert-danger' : submitted && errors.has('commect')}"
                         name="comment"
                         placeholder="Сыпучий груз"
                 />
-                <div
-                        v-if="submitted && errors.has('comment')"
-                        class="alert-danger">
-                  {{errors.first('comment')}}
-                </div>
               </div>
             </td>
           </tr>
@@ -253,6 +219,7 @@
 <script>
   import Route from '../../../models/route';
   import ShipService from '../../../services/ship.service';
+
   import { loadYmap } from 'vue-yandex-maps'
 
   export default {
@@ -264,6 +231,10 @@
         successful: false,
         startObjectFromGeocoder: null,
         finishObjectFromGeocoder: null,
+        error_address_from: true,
+        error_address_to: true,
+        message_error_address_from: '',
+        message_error_address_to: '',
         currMap: null,
         currPlacemark: null,
         message: ''
@@ -272,6 +243,7 @@
     components: {
       loadYmap
     },
+
     async mounted() {
       const settings = {
         apiKey: 'e7ac42a7-0581-4bb6-a333-8d12997bfb46',
@@ -282,10 +254,16 @@
       await loadYmap(settings);
       ymaps.ready(this.initMap());
 
-      // this.$validator.extend('correct_address_city', {
-      //   getMessage: field => 'Некорректный адрес',
-      //   validate: point => true
-      // });
+      this.$validator.extend('address_city_from', {
+        getMessage: field => this.message_error_address_from,
+        validate: point => this.error_address_from
+      });
+
+      this.$validator.extend('address_city_to', {
+        getMessage: field => this.message_error_address_to,
+        validate: point => this.error_address_to
+      });
+
 
 
     },
@@ -314,6 +292,7 @@
             );
           }
         });
+
       },
       initMap: function () {
         var suggestView1 = new ymaps.SuggestView(this.$refs.suggest), map, placemark;
@@ -355,48 +334,61 @@
             inputAddress = this.$refs.suggest2.value;
             break;
         }
+        if (inputAddress === '')
+          return;
 
         var obj = await ymaps.geocode(inputAddress).then(geocodeResponse => {
           return geocodeResponse.geoObjects.get(0);
         });
         var error, hint;
-        if (obj) {
-          switch (obj.properties.get('metaDataProperty.GeocoderMetaData.kind')) {
-            case 'locality':
-            case 'district':
-            case 'metro':
-            case 'street':
-            case 'house':
-            case 'area':
-            case 'province':
-              break;
-            case 'country':
-            case 'region':
-            case 'other':
-            default:
-              error = 'Неточный адрес, требуется уточнение';
+          if (obj) {
+            switch (obj.properties.get('metaDataProperty.GeocoderMetaData.kind')) {
+              case 'locality':
+              case 'district':
+              case 'metro':
+              case 'street':
+              case 'house':
+              case 'area':
+              case 'province':
+                break;
+              case 'country':
+              case 'region':
+              case 'other':
+              default:
+                error = 'Неточный адрес, требуется уточнение';
+            }
+          } else {
+            error = 'Адрес не найден';
           }
-        } else {
-          error = 'Адрес не найден';
-        }
 
 
-        if (error) {
-          // console.log("ERROR: " + error);
-          //this.showError(elem, error);
-        } else {
-          //console.log("OK");
-          switch (point) {
-            case 1:
-              this.route.start = inputAddress;
-              this.startObjectFromGeocoder = obj;
-              break;
-            case 2:
-              this.route.finish = inputAddress;
-              this.finishObjectFromGeocoder = obj;
-              break;
+          if (error) {
+            switch (point) {
+              case 1:
+                this.message_error_address_from = error;
+                this.error_address_from = false;
+                break;
+              case 2:
+                this.message_error_address_to = error;
+                this.error_address_to = false;
+                break;
+            }
+          } else {
+            switch (point) {
+              case 1:
+                this.error_address_from = true;
+                this.message_error_address_from = '';
+                this.route.start = inputAddress;
+                this.startObjectFromGeocoder = obj;
+                break;
+              case 2:
+                this.error_address_to = true;
+                this.message_error_address_to = '';
+                this.route.finish = inputAddress;
+                this.finishObjectFromGeocoder = obj;
+                break;
+            }
           }
-        }
       },
     }
 

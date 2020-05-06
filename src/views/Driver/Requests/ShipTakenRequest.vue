@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Принятые реквесты //здесь должна выводиться информация о маршруте</h3>
+      <h3>Принятые реквесты</h3>
     </header>
     <body>
 
@@ -12,13 +12,13 @@
             <th><label for="UserFromePhone">Телефон заказчика</label></th>
             <th><label for="start">Город отправления</label></th>
             <th><label for="finish">Город прибытия</label></th>
-            <th><label for="weight">Высота (м)</label></th>
-            <th><label for="height">Ширина (м)</label></th>
-            <th><label for="length">Длина (м)</label></th>
+            <th><label for="weight">Высота (см)</label></th>
+            <th><label for="height">Ширина (см)</label></th>
+            <th><label for="length">Длина (см)</label></th>
             <th><label for="width">Вес (кг)</label></th>
             <th><label for="comment">Комментарий</label></th>
             <th><label for="price">Цена</label></th>
-            <th><button class="btn btn-dark btn-sm">?</button></th>
+            <th><button class="btn btn-dark btn-sm"></button></th>
         </tr>
         </thead>
         <tbody id="list_request">
@@ -34,7 +34,7 @@
                   <td>{{ request.width }}</td>
                   <td>{{ request.comment }}</td>
                   <td>{{ request.price}}</td>
-                  <td><router-link :to="'/refuseShip/'+request.id" class="btn btn-sm">X</router-link></td>
+                  <td><router-link :to="'/refuseShip/'+request.id" class="btn btn-sm"><font-awesome-icon icon="trash-alt" /></router-link></td>
             </tr>
         </tbody>
     </table>

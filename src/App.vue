@@ -11,13 +11,13 @@
           <router-link to="/driver" class="nav-link">Мои поездки</router-link>
         </li>
         <li v-if="showDriverBoard" class="nav-item">
-            <router-link to="/driverRequest" class="nav-link">Реквесты</router-link>
+            <router-link to="/driverRequest" class="nav-link">Заявки</router-link>
         </li>
         <li v-if="showClientBoard" class="nav-item">
           <router-link to="/client" class="nav-link">Поиск предложений</router-link>
         </li>
         <li v-if="showClientBoard" class="nav-item">
-          <router-link to="/clientRequest" class="nav-link">Реквесты</router-link>
+          <router-link to="/clientRequest" class="nav-link">Заявки</router-link>
         </li>
       </div>
 

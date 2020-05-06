@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3><router-link :to="'/presentDriver'" class="btn"><-</router-link>
+      <h3><router-link :to="'/presentDriver'" class="btn"><font-awesome-icon icon="chevron-left" /></router-link>
           Мои будущие поездки</h3>
     </header>
     <body>
@@ -22,12 +22,12 @@
                 <option v-for="(finish) in uniqFinishes">{{finish}}</option>
             </select></th>
             <th>Доп. время (дн)</th>
-            <th>Высота (м)</th>
-            <th>Ширина (м)</th>
-            <th>Длина (м)</th>
+            <th>Высота (см)</th>
+            <th>Ширина (см)</th>
+            <th>Длина (см)</th>
             <th>Вес (кг)</th>
             <th>Комментарий</th>
-            <th><router-link to="/addRoute" class="btn btn-dark btn-sm">+</router-link></th>
+            <th><router-link to="/addRoute" class="btn btn-dark btn-sm"><font-awesome-icon icon="plus-square" /></router-link></th>
         </tr>
         </thead>
         <tbody id="list_route">
@@ -42,8 +42,8 @@
               <td>{{ route.length }}</td>
               <td>{{ route.width }}</td>
               <td>{{ route.comment }}</td>
-              <td><router-link :to="'/editRoute/'+route.id" class="btn btn-sm">./</router-link>
-                  <router-link :to="'/deleteRoute/'+route.id" class="btn btn-sm">X</router-link></td>
+              <td><router-link :to="'/editRoute/'+route.id" class="btn btn-sm"><font-awesome-icon icon="edit" /></router-link>
+                  <router-link :to="'/deleteRoute/'+route.id" class="btn btn-sm"><font-awesome-icon icon="trash-alt" /></router-link></td>
 
             </tr>
         </tbody>

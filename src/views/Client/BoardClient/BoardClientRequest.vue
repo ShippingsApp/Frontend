@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h3><router-link :to="'/clientRequestOld'" class="btn btn-sm"><font-awesome-icon icon="chevron-left" /></router-link>
-        Принятые реквесты</h3>
+        Принятые заявки</h3>
     </header>
     <body>
     <table class="table table-hover table-sm">

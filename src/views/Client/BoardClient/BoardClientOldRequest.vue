@@ -2,7 +2,7 @@
   <div class="container">
     <header class="jumbotron">
       <h3><router-link :to="'/clientRefusedRequest'" class="btn btn-sm"><font-awesome-icon icon="chevron-left" /></router-link>
-        Не отвеченные реквесты
+        Не отвеченные заявки
         <router-link :to="'/clientRequest'" class="btn btn-sm"><font-awesome-icon icon="chevron-right" /></router-link></h3>
     </header>
     <body>

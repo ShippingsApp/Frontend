@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <header class="jumbotron">
-      <h3>Отказанные реквесты
+      <h3>Отказанные заявки
         <router-link :to="'/clientRequestOld'" class="btn btn-sm"><font-awesome-icon icon="chevron-right" /></router-link></h3>
     </header>
     <body>

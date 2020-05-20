@@ -243,7 +243,7 @@
     name: 'Route',
     data() {
       return {
-        route: new Route(this.$route.params.id,'', '', '', '', '','', '', '', '', '',''),
+        route: new Route(this.$route.params.id),
         oldRoute: new Route('','', '', '', '', '','', '', '', '', '',''),
         submitted: false,
         successful: false,

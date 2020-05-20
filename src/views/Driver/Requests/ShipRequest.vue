@@ -10,10 +10,10 @@
         <tr>
             <th><label for="start">Город отправления</label></th>
             <th><label for="finish">Город прибытия</label></th>
-            <th><label for="weight">Высота (см)</label></th>
+            <th><label for="width">Высота (см)</label></th>
             <th><label for="height">Ширина (см)</label></th>
             <th><label for="length">Длина (см)</label></th>
-            <th><label for="width">Вес (кг)</label></th>
+            <th><label for="weight">Вес (кг)</label></th>
             <th><label for="comment">Комментарий</label></th>
             <th><label for="price">Цена</label></th>
             <th><button class="btn btn-dark btn-sm"></button></th>
@@ -24,10 +24,10 @@
              <tr v-for="request in requests" :key="request.id">
               <td>{{ request.start }}</td>
               <td>{{ request.finish }}</td>
-              <td>{{ request.weight }}</td>
+              <td>{{ request.width }}</td>
               <td>{{ request.height }}</td>
               <td>{{ request.length }}</td>
-              <td>{{ request.width }}</td>
+              <td>{{ request.weight }}</td>
               <td>{{ request.comment }}</td>
               <td>{{ request.price}}</td>
                  <td><router-link :to="'/takeShip/'+request.id" class="btn btn-sm"><font-awesome-icon icon="check-square" /></router-link>

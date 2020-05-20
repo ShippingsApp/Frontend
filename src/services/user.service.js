@@ -3,7 +3,10 @@ import authHeader from './auth-header';
 
 const API_URL_TEST = 'http://localhost:8088/api/test/';
 
-const API_UPL = 'http://localhost:8088/users/';
+//const API_UPL = 'http://localhost:8088/users/';
+
+const API_UPL = 'https://easy-shippings.herokuapp.com/users/';
+
 
 class UserService {
 

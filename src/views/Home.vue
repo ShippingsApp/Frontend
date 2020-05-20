@@ -5,7 +5,7 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <div class="card">
+        <div class="card" style="width: 100%; height: 800px">
           <div class="card-body">
             <h5 class="card-title">Я водитель</h5>
             <img class="card-img-top" v-bind:src="require('../assets/car.jpg')" alt="Car image">

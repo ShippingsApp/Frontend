@@ -1,7 +1,9 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8088/api/rqst/';
+//const API_URL = 'http://localhost:8088/api/rqst/';
+
+const API_URL = 'https://easy-shippings.herokuapp.com/api/rqst/';
 
 class RequestService {
   getClientBoard() {

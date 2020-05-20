@@ -1,7 +1,9 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:8088/api/ship/';
+//const API_URL = 'http://localhost:8088/api/ship/';
+
+const API_URL = 'https://easy-shippings.herokuapp.com/api/ship/';
 
 class ShipService {
   getDriverBoard(time_per) {
